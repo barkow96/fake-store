@@ -15,9 +15,7 @@ export default async function CategoryPage({ params }: Props) {
   const { category, products } =
     await ProductService.getProductsInCategory(decodedCategory);
 
-  const cart = await CartService.getCart({ id: 1 });
-
-  console.log("CART:", cart);
+  const cart = await CartService.getCart({ id: 3 });
 
   return (
     <div className={cn("min-h-screen", "bg-background")}>
