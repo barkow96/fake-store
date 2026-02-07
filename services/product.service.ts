@@ -1,7 +1,6 @@
 import { OApiEndpointUrl } from "@/constants";
 import type { Product } from "@/types";
 
-// TODO: Improve the service
 export const ProductService = {
   async getProducts(): Promise<Product[]> {
     const response = await fetch(OApiEndpointUrl.Products);
@@ -11,5 +10,10 @@ export const ProductService = {
     }
 
     return response.json();
+  },
+
+  async getProductCategories(): Promise<string[]> {
+    const products = await this.getProducts();
+    return [...new Set(products.map((product) => product.category))];
   },
 };
