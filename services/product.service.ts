@@ -2,12 +2,16 @@ import { OApiEndpointUrl } from "@/constants";
 import { apiToProductsList } from "@/mappers";
 import type { Product, ProductsInCategory } from "@/types";
 import { logError } from "@/utils";
+import { getCommonHeaders } from "./config";
 
 export const ProductService = {
   async getProducts(): Promise<Product[]> {
     const url = OApiEndpointUrl.Products;
 
-    const response = await fetch(OApiEndpointUrl.Products).catch((error) => {
+    const response = await fetch(url, {
+      method: "GET",
+      headers: getCommonHeaders(),
+    }).catch((error) => {
       logError("Failed to fetch products", { url, error });
     });
 
