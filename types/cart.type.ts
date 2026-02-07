@@ -28,7 +28,6 @@ export type CreateCartParams = { userId: EntryId; products: CartProduct[] };
 
 export type UpdateCartParams = {
   id: EntryId;
-  userId: EntryId;
   products: CartProduct[];
 };
 

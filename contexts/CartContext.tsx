@@ -19,7 +19,6 @@ import {
 
 // TODO: In the future, these values will come from API
 const USER_ID = 1;
-const CART_ID = 1;
 
 type CartContextType = {
   cart: Cart | null;
@@ -39,76 +38,104 @@ export function CartProvider({ children }: PropsWithChildren) {
   const [cartId, setCartId] = useState<EntryId | null>(null);
   const [isInitialized, setIsInitialized] = useState(false);
 
-  const clearCart = () => {
+  const updateCart = async (cartProducts: CartProduct[]): Promise<void> => {
+    if (!cartId || !userId) return;
+
+    const params: UpdateCartParams = {
+      id: cartId,
+      products: cartProducts,
+    };
+
+    const updatedCart = await CartService.updateCart(params);
+
+    if (!updatedCart) return;
+
+    const newCart: Cart = {
+      id: cartId,
+      userId: userId,
+      products: cartProducts,
+    };
+
+    saveToLocalStorage(newCart);
+    setCart(newCart);
+  };
+
+  const loadFromLocalStorage = (): {
+    userId: EntryId | null;
+    cartId: EntryId | null;
+    cart: Cart | null;
+  } => {
+    const userIdStr = getLocalStorageItem(OLocalStorageKey.UserId);
+    const cartIdStr = getLocalStorageItem(OLocalStorageKey.CartId);
+    const cart = parseCartFromLocalStorage();
+
+    return {
+      userId: userIdStr ? parseInt(userIdStr) : null,
+      cartId: cartIdStr ? parseInt(cartIdStr) : null,
+      cart,
+    };
+  };
+
+  const saveToLocalStorage = (cart: Cart): void => {
+    setLocalStorageItem(OLocalStorageKey.UserId, cart.userId.toString());
+    setLocalStorageItem(OLocalStorageKey.CartId, cart.id.toString());
+    setLocalStorageItem(OLocalStorageKey.Cart, JSON.stringify(cart));
+  };
+
+  const initializeNewCart = async (): Promise<void> => {
+    const newCartId = await CartService.createCart();
+
+    if (!newCartId) return;
+
+    const newCart: Cart = {
+      id: newCartId,
+      userId: USER_ID,
+      products: [],
+    };
+
+    saveToLocalStorage(newCart);
+    setCart(newCart);
+    setUserId(USER_ID);
+    setCartId(newCartId);
+  };
+
+  const initializeExistingCart = (
+    userId: EntryId,
+    cartId: EntryId,
+    cart: Cart,
+  ): void => {
+    setUserId(userId);
+    setCartId(cartId);
+    setCart(cart);
+  };
+
+  const clearCart = (): void => {
     removeLocalStorageItem(OLocalStorageKey.UserId);
     removeLocalStorageItem(OLocalStorageKey.CartId);
     removeLocalStorageItem(OLocalStorageKey.Cart);
 
     setUserId(null);
     setCartId(null);
+    setCart(null);
   };
 
-  const refreshCart = () => {
-    const loadedUserId = getLocalStorageItem(OLocalStorageKey.UserId);
-    const loadedCartId = getLocalStorageItem(OLocalStorageKey.CartId);
+  const refreshCart = (): void => {
+    const { userId, cartId, cart } = loadFromLocalStorage();
 
-    setUserId(loadedUserId ? parseInt(loadedUserId) : null);
-    setCartId(loadedCartId ? parseInt(loadedCartId) : null);
-    setCart(parseCartFromLocalStorage());
+    setUserId(userId);
+    setCartId(cartId);
+    setCart(cart);
   };
 
-  const updateCart = async (cartProducts: CartProduct[]) => {
-    if (!cartId || !userId) return;
+  const initializeCart = useEffectEvent(async () => {
+    const { userId, cartId, cart } = loadFromLocalStorage();
 
-    const params: UpdateCartParams = {
-      id: cartId,
-      userId: userId,
-      products: cartProducts,
-    };
-    const updatedCart = await CartService.updateCart(params);
+    const hasExistingCart = userId && cartId && cart;
 
-    // If success, then let's syncchornize the CartContext (local-storage and global cart state)
-    if (updatedCart) {
-      const newCart: Cart = {
-        id: params.id,
-        userId: params.userId,
-        products: params.products,
-      };
+    if (hasExistingCart) initializeExistingCart(userId, cartId, cart);
+    else await initializeNewCart();
 
-      setCart(newCart);
-      setLocalStorageItem(OLocalStorageKey.Cart, JSON.stringify(newCart));
-      setLocalStorageItem(OLocalStorageKey.CartId, newCart.id.toString());
-      setLocalStorageItem(OLocalStorageKey.UserId, newCart.userId.toString());
-    }
-  };
-
-  const loadCartData = () => {
-    const loadedUserId = getLocalStorageItem(OLocalStorageKey.UserId);
-    const loadedCartId = getLocalStorageItem(OLocalStorageKey.CartId);
-    const loadedCart = parseCartFromLocalStorage();
-
-    setUserId(loadedUserId ? parseInt(loadedUserId) : null);
-    if (!loadedUserId) {
-      setLocalStorageItem(OLocalStorageKey.UserId, USER_ID.toString());
-    }
-
-    setCartId(loadedCartId ? parseInt(loadedCartId) : null);
-    if (!loadedCartId) {
-      setLocalStorageItem(OLocalStorageKey.CartId, CART_ID.toString());
-    }
-
-    setCart(loadedCart);
-    if (!loadedCart) {
-      setLocalStorageItem(
-        OLocalStorageKey.Cart,
-        JSON.stringify({ id: CART_ID, userId: USER_ID, products: [] }),
-      );
-    }
     setIsInitialized(true);
-  };
-
-  const initializeCart = useEffectEvent(() => {
-    loadCartData();
   });
 
   useEffect(() => {

@@ -1,9 +1,9 @@
 import { OApiEndpointUrl } from "@/constants";
-import { assureCart } from "@/mappers";
+import { assureCart, assureEntryId } from "@/mappers";
 import type {
   Cart,
-  CreateCartParams,
   DeleteCartParams,
+  EntryId,
   GetCartParams,
   IsSuccess,
   UpdateCartParams,
@@ -39,15 +39,14 @@ export const CartService = {
     return assureCart(data);
   },
 
-  async createCart(params: CreateCartParams): Promise<Cart | undefined> {
+  async createCart(): Promise<EntryId | undefined> {
     const url = OApiEndpointUrl.Carts;
 
     const response = await fetch(url, {
       method: "POST",
       headers: getCommonHeaders(),
-      body: JSON.stringify(params),
     }).catch((error) => {
-      logError("Failed to create cart", { url, error, params });
+      logError("Failed to create cart", { url, error });
     });
 
     if (!response || !response.ok) {
@@ -58,13 +57,12 @@ export const CartService = {
       logError("Failed to parse created cart data from fetch response", {
         url,
         err,
-        params,
       });
 
       return;
     });
 
-    return assureCart(data);
+    return assureEntryId(data?.id);
   },
 
   async updateCart(params: UpdateCartParams): Promise<Cart | undefined> {
