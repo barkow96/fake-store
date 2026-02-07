@@ -1,5 +1,5 @@
 import { Product } from "@/types";
-import { cn } from "@/utils";
+import { cn, formatMoney } from "@/utils";
 import Image from "next/image";
 import { AddToCartButton } from "./AddToCartButton";
 
@@ -58,7 +58,7 @@ export const ProductCard = ({ product }: Props) => {
             "text-foreground",
           )}
         >
-          ${product.price.toFixed(2)}
+          {formatMoney(product.price)}
         </p>
       </div>
 

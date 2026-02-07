@@ -1,16 +1,16 @@
 "use client";
-
 import { Product } from "@/types";
-import { cn } from "@/utils";
+import { cn, formatMoney } from "@/utils";
 import Image from "next/image";
+import { BiMinus, BiPlus, BiTrash } from "react-icons/bi";
 
-interface CartItemProps {
+type Props = {
   product: Product;
   quantity: number;
   onIncrease: () => void;
   onDecrease: () => void;
   onRemove: () => void;
-}
+};
 
 export function CartItem({
   product,
@@ -18,7 +18,7 @@ export function CartItem({
   onIncrease,
   onDecrease,
   onRemove,
-}: CartItemProps) {
+}: Props) {
   const totalPrice = product.price * quantity;
 
   return (
@@ -77,12 +77,14 @@ export function CartItem({
         </div>
 
         {/* Price */}
-        <div className={cn("flex items-center gap-spacing-sm", "mt-spacing-sm")}>
+        <div
+          className={cn("flex items-center gap-spacing-sm", "mt-spacing-sm")}
+        >
           <span className={cn("text-sm", "text-muted-foreground")}>
-            ${product.price.toFixed(2)} each
+            {formatMoney(product.price)} each
           </span>
           <span className={cn("text-lg font-bold", "text-foreground")}>
-            ${totalPrice.toFixed(2)}
+            {formatMoney(totalPrice)}
           </span>
         </div>
       </div>
@@ -105,21 +107,7 @@ export function CartItem({
           )}
           aria-label="Remove from cart"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d="M3 6h18" />
-            <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
-            <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
-          </svg>
+          <BiTrash size={20} />
         </button>
 
         {/* Quantity Controls */}
@@ -145,19 +133,7 @@ export function CartItem({
             disabled={quantity <= 1}
             aria-label="Decrease quantity"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M5 12h14" />
-            </svg>
+            <BiMinus size={20} />
           </button>
 
           <span
@@ -183,20 +159,7 @@ export function CartItem({
             )}
             aria-label="Increase quantity"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M5 12h14" />
-              <path d="M12 5v14" />
-            </svg>
+            <BiPlus size={20} />
           </button>
         </div>
       </div>
