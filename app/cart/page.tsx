@@ -1,6 +1,14 @@
+import { cn } from "@/utils";
+
 export default function Cart() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
+    <div
+      className={cn(
+        "flex min-h-screen items-center justify-center",
+        "bg-background",
+        "font-sans",
+      )}
+    >
       Cart Page
     </div>
   );
