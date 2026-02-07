@@ -1,9 +1,13 @@
 "use client";
 import { OLocalStorageKey } from "@/constants";
+import { isNumber } from "@/mappers";
 import { CartService } from "@/services";
 import { Cart, CartProduct, EntryId, UpdateCartParams } from "@/types";
 import {
   getLocalStorageItem,
+  logInfo,
+  logWarn,
+  mergeCartProducts,
   parseCartFromLocalStorage,
   removeLocalStorageItem,
   setLocalStorageItem,
@@ -39,21 +43,42 @@ export function CartProvider({ children }: PropsWithChildren) {
   const [isInitialized, setIsInitialized] = useState(false);
 
   const updateCart = async (cartProducts: CartProduct[]): Promise<void> => {
-    if (!cartId || !userId) return;
+    if (!cartId || !userId || !cart) {
+      logWarn(
+        "CartProvider updateCart: Missing cartId, userId, or cart, skipping update",
+      );
+      return;
+    }
+
+    const mergedProducts = mergeCartProducts(cart.products, cartProducts);
 
     const params: UpdateCartParams = {
       id: cartId,
-      products: cartProducts,
+      products: mergedProducts,
     };
+
+    logInfo(
+      "CartProvider updateCart: existingProducts, newProducts, mergedProducts",
+      {
+        existingProducts: cart.products,
+        newProducts: cartProducts,
+        mergedProducts,
+      },
+    );
 
     const updatedCart = await CartService.updateCart(params);
 
-    if (!updatedCart) return;
+    logInfo("CartProvider updateCart: updatedCart", updatedCart);
+
+    if (!updatedCart) {
+      logWarn("CartProvider updateCart: failed to update cart");
+      return;
+    }
 
     const newCart: Cart = {
       id: cartId,
       userId: userId,
-      products: cartProducts,
+      products: mergedProducts,
     };
 
     saveToLocalStorage(newCart);
@@ -85,7 +110,12 @@ export function CartProvider({ children }: PropsWithChildren) {
   const initializeNewCart = async (): Promise<void> => {
     const newCartId = await CartService.createCart();
 
-    if (!newCartId) return;
+    if (!isNumber(newCartId)) {
+      logWarn(
+        "CartProvider initializeNewCart: cartId from API is not a number, skipping initialization",
+      );
+      return;
+    }
 
     const newCart: Cart = {
       id: newCartId,
