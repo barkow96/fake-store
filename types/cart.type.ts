@@ -21,3 +21,15 @@ export type Cart = {
   userId: EntryId;
   products: CartProduct[];
 };
+
+export type GetCartParams = { id: EntryId };
+
+export type CreateCartParams = { userId: EntryId; products: CartProduct[] };
+
+export type UpdateCartParams = {
+  id: EntryId;
+  userId: EntryId;
+  products: CartProduct[];
+};
+
+export type DeleteCartParams = { id: EntryId };

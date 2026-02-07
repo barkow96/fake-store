@@ -1,6 +1,6 @@
-import { BackLink, Header } from "@/components";
+import { AddToCartButton, BackLink, Header } from "@/components";
 import { ORoute } from "@/constants";
-import { CartService, ProductService } from "@/services";
+import { ProductService } from "@/services";
 import { cn } from "@/utils";
 import Image from "next/image";
 
@@ -14,8 +14,6 @@ export default async function CategoryPage({ params }: Props) {
 
   const { category, products } =
     await ProductService.getProductsInCategory(decodedCategory);
-
-  const cart = await CartService.getCart({ id: 3 });
 
   return (
     <div className={cn("min-h-screen", "bg-background")}>
@@ -99,18 +97,7 @@ export default async function CategoryPage({ params }: Props) {
                 </p>
               </div>
 
-              <button
-                className={cn(
-                  "mt-spacing-md w-full",
-                  "rounded-radius-md",
-                  "bg-primary text-primary-foreground",
-                  "px-spacing-md py-spacing-sm",
-                  "text-sm font-medium",
-                  "transition-all hover:opacity-90",
-                )}
-              >
-                Add to Cart
-              </button>
+              <AddToCartButton productId={product.id} />
             </div>
           ))}
         </div>

@@ -1,17 +1,15 @@
 import { OApiEndpointUrl } from "@/constants";
 import { assureCart } from "@/mappers";
-import type { Cart, CartProduct, EntryId, IsSuccess, Product } from "@/types";
+import type {
+  Cart,
+  CreateCartParams,
+  DeleteCartParams,
+  GetCartParams,
+  IsSuccess,
+  UpdateCartParams,
+} from "@/types";
 import { logError } from "@/utils";
 import { getCommonHeaders } from "./config";
-
-type GetCartParams = { id: EntryId };
-type CreateCartParams = { userId: EntryId; products: CartProduct[] };
-type UpdateCartParams = {
-  id: EntryId;
-  userId: EntryId;
-  products: CartProduct[];
-};
-type DeleteCartParams = { id: EntryId };
 
 export const CartService = {
   async getCart({ id }: GetCartParams): Promise<Cart | undefined> {
