@@ -1,4 +1,5 @@
 import { OApiEndpointUrl } from "@/constants";
+import { apiToProductsList } from "@/mappers";
 import type { Product } from "@/types";
 
 export const ProductService = {
@@ -9,7 +10,9 @@ export const ProductService = {
       throw new Error("Failed to fetch products");
     }
 
-    return response.json();
+    const data = await response.json();
+
+    return apiToProductsList(data);
   },
 
   async getProductCategories(): Promise<string[]> {

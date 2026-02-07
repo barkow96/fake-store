@@ -1,9 +1,13 @@
-import Link from "next/link";
-import { ProductService } from "@/services";
 import { ORoute } from "@/constants";
+import { ProductService } from "@/services";
+import Link from "next/link";
 
 export default async function Home() {
+  const products = await ProductService.getProducts();
   const categories = await ProductService.getProductCategories();
+
+  console.log("PRODUCTS", products);
+  console.log("CATEGORIES", categories);
 
   return (
     <div className="min-h-screen bg-background">
