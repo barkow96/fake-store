@@ -1,6 +1,6 @@
-import { ORoute } from "@/constants";
+import { ViewHeader } from "@/components";
 import { cn } from "@/utils";
-import Link from "next/link";
+import { CategoryCard } from "./partials";
 
 type Props = {
   categories: string[];
@@ -9,14 +9,10 @@ type Props = {
 export const HomeView = ({ categories }: Props) => {
   return (
     <div className={cn("mx-auto max-w-7xl", "px-spacing-lg py-spacing-2xl")}>
-      <div className={cn("mb-spacing-xl")}>
-        <h2 className={cn("text-3xl font-bold", "text-foreground")}>
-          Shop by Category
-        </h2>
-        <p className={cn("mt-spacing-sm", "text-muted-foreground")}>
-          Browse our curated collection of products
-        </p>
-      </div>
+      <ViewHeader
+        title="Shop by Category"
+        description="Browse our curated collection of products"
+      />
 
       <div
         className={cn(
@@ -25,39 +21,7 @@ export const HomeView = ({ categories }: Props) => {
         )}
       >
         {categories.map((category) => (
-          <Link
-            key={category}
-            href={`${ORoute.CATEGORY}/${encodeURIComponent(category)}`}
-            className={cn(
-              "group",
-              "flex h-full flex-col",
-              "rounded-radius-lg",
-              "bg-card",
-              "border border-border",
-              "p-spacing-xl",
-              "shadow-sm",
-              "transition-all hover:border-primary hover:shadow-md",
-            )}
-          >
-            <h3
-              className={cn(
-                "text-lg font-semibold capitalize",
-                "text-card-foreground",
-                "group-hover:text-primary",
-              )}
-            >
-              {category}
-            </h3>
-            <p
-              className={cn(
-                "mt-spacing-sm",
-                "text-sm",
-                "text-muted-foreground",
-              )}
-            >
-              Explore products →
-            </p>
-          </Link>
+          <CategoryCard key={`category-${category}`} category={category} />
         ))}
       </div>
     </div>

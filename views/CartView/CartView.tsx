@@ -1,6 +1,5 @@
 "use client";
-import { BackLink, CartItem } from "@/components";
-import { ORoute } from "@/constants";
+import { CartItem, ViewHeader } from "@/components";
 import { Cart, Product } from "@/types";
 import { cn } from "@/utils";
 import { BiCart } from "react-icons/bi";
@@ -43,23 +42,17 @@ export const CartView = ({
   }
 
   const isEmpty = !cart?.products.length;
+  const description = isEmpty
+    ? "Your cart is empty"
+    : `${totalItems} ${totalItems === 1 ? "item" : "items"} in cart`;
 
   return (
     <main className={cn("mx-auto max-w-7xl", "px-spacing-lg py-spacing-2xl")}>
-      <div className={cn("mb-spacing-xl")}>
-        <BackLink href={ORoute.HOME}>Back to Home</BackLink>
-      </div>
-
-      <div className={cn("mb-spacing-xl")}>
-        <h1 className={cn("text-3xl font-bold", "text-foreground")}>
-          Shopping Cart
-        </h1>
-        <p className={cn("mt-spacing-sm", "text-muted-foreground")}>
-          {isEmpty
-            ? "Your cart is empty"
-            : `${totalItems} ${totalItems === 1 ? "item" : "items"} in cart`}
-        </p>
-      </div>
+      <ViewHeader
+        title="Shopping Cart"
+        description={description}
+        withHomeLink
+      />
 
       {isEmpty ? (
         <div

@@ -1,5 +1,4 @@
-import { AddToCartButton, BackLink } from "@/components";
-import { ORoute } from "@/constants";
+import { AddToCartButton, ViewHeader } from "@/components";
 import { ProductsInCategory } from "@/types";
 import { cn } from "@/utils";
 import Image from "next/image";
@@ -11,18 +10,11 @@ export const CategoryView = ({ productsInCategory }: Props) => {
 
   return (
     <div className={cn("mx-auto max-w-7xl", "px-spacing-lg py-spacing-2xl")}>
-      <div className={cn("mb-spacing-xl")}>
-        <BackLink href={ORoute.HOME}>Back to Home Page</BackLink>
-      </div>
-
-      <div className={cn("mb-spacing-xl")}>
-        <h1 className={cn("text-3xl font-bold capitalize", "text-foreground")}>
-          {category}
-        </h1>
-        <p className={cn("mt-spacing-sm", "text-muted-foreground")}>
-          {products.length} products available
-        </p>
-      </div>
+      <ViewHeader
+        title={category}
+        description={`${products.length} products available`}
+        withHomeLink
+      />
 
       <div
         className={cn(
