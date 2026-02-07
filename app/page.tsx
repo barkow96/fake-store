@@ -3,11 +3,7 @@ import { ProductService } from "@/services";
 import Link from "next/link";
 
 export default async function Home() {
-  const products = await ProductService.getProducts();
   const categories = await ProductService.getProductCategories();
-
-  console.log("PRODUCTS", products);
-  console.log("CATEGORIES", categories);
 
   return (
     <div className="min-h-screen bg-background">
@@ -57,7 +53,7 @@ export default async function Home() {
           {categories.map((category) => (
             <Link
               key={category}
-              href={`${ORoute.CATEGORY}?name=${encodeURIComponent(category)}`}
+              href={`${ORoute.CATEGORY}/${encodeURIComponent(category)}`}
               className="group rounded-radius-lg border border-border bg-card p-spacing-xl shadow-sm transition-all hover:border-primary hover:shadow-md"
             >
               <div className="flex h-full flex-col">
