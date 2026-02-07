@@ -1,12 +1,12 @@
 import { cn } from "@/utils";
 import Link from "next/link";
 
-interface BackLinkProps {
+type Props = {
   href: string;
   children: React.ReactNode;
-}
+};
 
-export function BackLink({ href, children }: BackLinkProps) {
+export function BackLink({ href, children }: Props) {
   return (
     <Link
       href={href}
