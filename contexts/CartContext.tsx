@@ -42,7 +42,7 @@ export function CartProvider({ children }: PropsWithChildren) {
   const [cartId, setCartId] = useState<EntryId | null>(null);
   const [isInitialized, setIsInitialized] = useState(false);
 
-  const updateCart = async (cartProducts: CartProduct[]): Promise<void> => {
+  const updateCart = async (productsDiff: CartProduct[]): Promise<void> => {
     if (!cartId || !userId || !cart) {
       logWarn(
         "CartProvider updateCart: Missing cartId, userId, or cart, skipping update",
@@ -50,7 +50,7 @@ export function CartProvider({ children }: PropsWithChildren) {
       return;
     }
 
-    const mergedProducts = mergeCartProducts(cart.products, cartProducts);
+    const mergedProducts = mergeCartProducts(cart.products, productsDiff);
 
     const params: UpdateCartParams = {
       id: cartId,
@@ -61,7 +61,7 @@ export function CartProvider({ children }: PropsWithChildren) {
       "CartProvider updateCart: existingProducts, newProducts, mergedProducts",
       {
         existingProducts: cart.products,
-        newProducts: cartProducts,
+        newProducts: productsDiff,
         mergedProducts,
       },
     );

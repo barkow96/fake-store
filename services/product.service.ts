@@ -1,10 +1,36 @@
 import { OApiEndpointUrl } from "@/constants";
-import { apiToAppProductsList } from "@/mappers";
-import type { Product, ProductsInCategory } from "@/types";
+import { apiToAppProductsList, assureProduct } from "@/mappers";
+import type { GetProductParams, Product, ProductsInCategory } from "@/types";
 import { logError } from "@/utils";
 import { getCommonHeaders } from "./config";
 
 export const ProductService = {
+  async getProduct({ id }: GetProductParams): Promise<Product | undefined> {
+    const url = `${OApiEndpointUrl.Products}/${id}`;
+
+    const response = await fetch(url, {
+      method: "GET",
+      headers: getCommonHeaders(),
+    }).catch((error) => {
+      logError("Failed to fetch product by id", { url, error, id });
+    });
+
+    if (!response || !response.ok) {
+      return;
+    }
+
+    const data = await response.json().catch((err) => {
+      logError("Failed to parse product data from fetch response", {
+        url,
+        err,
+      });
+
+      return;
+    });
+
+    return assureProduct(data);
+  },
+
   async getProducts(): Promise<Product[]> {
     const url = OApiEndpointUrl.Products;
 

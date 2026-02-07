@@ -22,3 +22,7 @@ export type ProductsInCategory = {
   category: string;
   products: Product[];
 };
+
+export type GetProductParams = {
+  id: EntryId;
+};
