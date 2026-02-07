@@ -1,7 +1,7 @@
-import { AddToCartButton, ViewHeader } from "@/components";
+import { ViewHeader } from "@/components";
 import { ProductsInCategory } from "@/types";
 import { cn } from "@/utils";
-import Image from "next/image";
+import { ProductCard } from "./partials";
 
 type Props = { productsInCategory: ProductsInCategory };
 
@@ -23,63 +23,7 @@ export const CategoryView = ({ productsInCategory }: Props) => {
         )}
       >
         {products.map((product) => (
-          <div
-            key={product.id}
-            className={cn(
-              "group",
-              "flex flex-col",
-              "rounded-radius-lg",
-              "bg-card",
-              "border border-border",
-              "p-spacing-lg",
-              "shadow-sm",
-              "transition-all hover:shadow-md",
-            )}
-          >
-            <div
-              className={cn(
-                "aspect-square",
-                "overflow-hidden rounded-radius-md",
-                "bg-secondary",
-              )}
-            >
-              <Image
-                src={product.image}
-                alt={product.title}
-                width={100}
-                height={100}
-                className={cn(
-                  "h-full w-full",
-                  "object-contain",
-                  "p-spacing-md",
-                  "transition-transform group-hover:scale-105",
-                )}
-              />
-            </div>
-
-            <div className={cn("mt-spacing-md")}>
-              <h3
-                className={cn(
-                  "line-clamp-2",
-                  "text-sm font-semibold",
-                  "text-card-foreground",
-                )}
-              >
-                {product.title}
-              </h3>
-              <p
-                className={cn(
-                  "mt-spacing-sm",
-                  "text-lg font-bold",
-                  "text-foreground",
-                )}
-              >
-                ${product.price.toFixed(2)}
-              </p>
-            </div>
-
-            <AddToCartButton productId={product.id} />
-          </div>
+          <ProductCard key={`product-${product.id}`} product={product} />
         ))}
       </div>
     </div>
