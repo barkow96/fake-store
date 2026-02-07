@@ -17,7 +17,7 @@ export const assureProduct = (apiProduct: ApiProduct): Product => {
   };
 };
 
-export const apiToProductsList = (apiProducts: ApiProduct[]): Product[] => {
+export const apiToAppProductsList = (apiProducts: ApiProduct[]): Product[] => {
   const assuredApiProducts = assureArray<ApiProduct>(apiProducts, "products");
 
   return assuredApiProducts.map(assureProduct);

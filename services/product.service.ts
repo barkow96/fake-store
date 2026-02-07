@@ -1,5 +1,5 @@
 import { OApiEndpointUrl } from "@/constants";
-import { apiToProductsList } from "@/mappers";
+import { apiToAppProductsList } from "@/mappers";
 import type { Product, ProductsInCategory } from "@/types";
 import { logError } from "@/utils";
 import { getCommonHeaders } from "./config";
@@ -28,7 +28,7 @@ export const ProductService = {
       return [] as Product[];
     });
 
-    return apiToProductsList(data);
+    return apiToAppProductsList(data);
   },
 
   async getProductCategories(): Promise<string[]> {

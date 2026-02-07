@@ -1,6 +1,6 @@
 import { BackLink, Header } from "@/components";
 import { ORoute } from "@/constants";
-import { ProductService } from "@/services";
+import { CartService, ProductService } from "@/services";
 import { cn } from "@/utils";
 import Image from "next/image";
 
@@ -14,6 +14,10 @@ export default async function CategoryPage({ params }: Props) {
 
   const { category, products } =
     await ProductService.getProductsInCategory(decodedCategory);
+
+  const cart = await CartService.getCart({ id: 1 });
+
+  console.log("CART:", cart);
 
   return (
     <div className={cn("min-h-screen", "bg-background")}>
