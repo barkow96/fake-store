@@ -12,14 +12,12 @@ export function CartDebugInfo() {
   return (
     <div
       className={cn(
-        "fixed bottom-spacing-md right-spacing-md",
         "rounded-radius-md",
         "bg-card",
         "border border-border",
         "p-spacing-md",
         "shadow-lg",
         "text-xs",
-        "max-w-xs",
       )}
     >
       <h3
