@@ -13,7 +13,7 @@ export const OrderSummary = ({ totalItems, totalPrice }: Props) => {
         "sticky top-lg",
         "rounded-xl bg-card",
         "border-2 border-border",
-        "p-lg",
+        "p-md",
         "shadow-md",
         "top-[calc(140px+var(--spacing-lg))]",
       )}
@@ -21,8 +21,7 @@ export const OrderSummary = ({ totalItems, totalPrice }: Props) => {
       <h2
         className={cn(
           "text-2xl font-bold text-foreground",
-          "mb-xl",
-          "pb-lg",
+          "mb-xl pb-lg",
           "border-b-2 border-border",
         )}
       >
@@ -30,23 +29,25 @@ export const OrderSummary = ({ totalItems, totalPrice }: Props) => {
       </h2>
 
       <div className={cn("space-y-lg mb-xl")}>
-        <div className={cn("flex justify-between items-center", "text-base")}>
+        <div className={cn("flex justify-between gap-md", "text-base")}>
           <span className={cn("text-muted-foreground")}>
             Subtotal ({totalItems} {totalItems === 1 ? "item" : "items"})
           </span>
-          <span className={cn("font-semibold text-foreground")}>
+          <span className={cn("font-semibold text-foreground text-right")}>
             {formatMoney(totalPrice)}
           </span>
         </div>
 
-        <div className={cn("flex justify-between items-center", "text-base")}>
+        <div className={cn("flex justify-between gap-md", "text-base")}>
           <span className={cn("text-muted-foreground")}>Shipping</span>
-          <span className={cn("font-semibold text-success")}>Free</span>
+          <span className={cn("font-semibold text-success text-right")}>
+            Free
+          </span>
         </div>
 
-        <div className={cn("flex justify-between items-center", "text-base")}>
+        <div className={cn("flex justify-between gap-md", "text-base")}>
           <span className={cn("text-muted-foreground")}>Tax</span>
-          <span className={cn("font-semibold text-foreground")}>
+          <span className={cn("font-semibold text-foreground text-right")}>
             Calculated at checkout
           </span>
         </div>
@@ -65,7 +66,7 @@ export const OrderSummary = ({ totalItems, totalPrice }: Props) => {
         </div>
       </div>
 
-      <Button variant="primary" size="lg" className="px-sm" fullWidth>
+      <Button variant="primary" size="md" className="px-sm" fullWidth>
         Proceed to Checkout
       </Button>
 

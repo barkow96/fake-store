@@ -25,18 +25,18 @@ export const CartItem = ({
   return (
     <div
       className={cn(
-        // Layout - compact on tiny screens
+        // Layout
         "flex flex-col gap-md sm:gap-lg lg:gap-xl lg:flex-row lg:items-start",
         // Styling
         "rounded-xl bg-card",
         "border-2 border-border",
-        "p-md sm:p-lg lg:p-xl",
+        "p-md",
         // Effects
         "shadow-sm hover:shadow-md",
         "transition-all duration-base ease-out",
       )}
     >
-      {/* Product Image + Details - stacked on tiny, row on sm+ */}
+      {/* Product Image and Details*/}
       <div
         className={cn(
           "flex flex-col gap-md min-w-0 min-[400px]:flex-row",
@@ -102,16 +102,6 @@ export const CartItem = ({
           "flex-shrink-0",
         )}
       >
-        {/* Remove Button */}
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={onRemove}
-          aria-label="Remove from cart"
-        >
-          <BiTrash size={18} className="shrink-0" />
-        </Button>
-
         {/* Quantity Controls */}
         <div
           className={cn(
@@ -150,6 +140,16 @@ export const CartItem = ({
             <BiPlus size={18} />
           </Button>
         </div>
+
+        {/* Remove Button */}
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={onRemove}
+          aria-label="Remove from cart"
+        >
+          <BiTrash size={18} className="shrink-0" />
+        </Button>
       </div>
     </div>
   );

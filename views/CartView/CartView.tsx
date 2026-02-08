@@ -46,8 +46,8 @@ export const CartView = ({
 
       {!isEmpty && (
         <div className={cn("grid gap-2xl", "lg:grid-cols-3")}>
-          {/* Cart Items */}
-          <div className={cn("lg:col-span-2", "space-y-lg")}>
+          {/* Cart Items Section*/}
+          <section className={cn("lg:col-span-2", "space-y-lg")}>
             {cart.products.map((cartProduct) => {
               const product = products.find(
                 (p) => p.id === cartProduct.productId,
@@ -65,12 +65,12 @@ export const CartView = ({
                 />
               );
             })}
-          </div>
+          </section>
 
-          {/* Order Summary */}
-          <div className={cn("lg:col-span-1")}>
+          {/* Order Summary Section*/}
+          <section className={cn("lg:col-span-1")}>
             <OrderSummary totalItems={totalItems} totalPrice={totalPrice} />
-          </div>
+          </section>
         </div>
       )}
     </main>
