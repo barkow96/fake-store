@@ -14,10 +14,16 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const title = "Fake Store";
+const description = "A store for testing and improving development skills.";
+
 export const metadata: Metadata = {
-  title: "Fake Store",
-  description:
-    "Fake Store is a store for testing and improving development skills",
+  title,
+  description,
+  openGraph: {
+    title,
+    description,
+  },
 };
 
 export default function RootLayout({
@@ -31,7 +37,6 @@ export default function RootLayout({
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
-          {/* <CartDebugInfo /> */}
           <Header />
           <main className="min-h-screen">{children}</main>
           <Toaster />
