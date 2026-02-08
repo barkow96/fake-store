@@ -1,8 +1,8 @@
 "use client";
+import { ButtonAsLink } from "@/components";
 import { ORoute } from "@/constants";
 import { useCart } from "@/contexts";
 import { cn } from "@/utils";
-import Link from "next/link";
 import { BiCart } from "react-icons/bi";
 
 export const CartButton = () => {
@@ -16,26 +16,14 @@ export const CartButton = () => {
   const hasItems = (itemsCount ?? 0) > 0;
 
   return (
-    <Link
+    <ButtonAsLink
       href={ORoute.CART}
-      className={cn(
-        // Layout
-        "relative flex items-center gap-md",
-        // Styling
-        "rounded-xl",
-        "bg-accent text-accent-foreground",
-        "px-xl py-md",
-        "text-base font-bold",
-        // Effects
-        "shadow-sm hover:shadow-md",
-        "transition-all duration-base ease-out",
-        "hover:opacity-90 hover:-translate-y-0.5",
-      )}
+      variant="primary"
+      size="sm"
       aria-label={`Go to shopping cart (${itemsCount ?? 0} items)`}
     >
-      <BiCart size={24} />
+      <BiCart size={24} className="shrink-0" />
       <span>Cart</span>
-      
       {hasItems && (
         <span
           className={cn(
@@ -53,6 +41,6 @@ export const CartButton = () => {
           {itemsCount}
         </span>
       )}
-    </Link>
+    </ButtonAsLink>
   );
 };

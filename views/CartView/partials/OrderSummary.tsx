@@ -64,7 +64,7 @@ export const OrderSummary = ({ totalItems, totalPrice }: Props) => {
         </div>
       </div>
 
-      <Button variant="primary" size="lg" fullWidth>
+      <Button variant="primary" size="lg" className="px-sm" fullWidth>
         Proceed to Checkout
       </Button>
 
