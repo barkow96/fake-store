@@ -10,10 +10,13 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "prettier:write": "npx prettier . --write",
-    "prettier:check": "npx prettier . --check"
+    "prettier:check": "npx prettier . --check",
+    "prepare": "husky"
   },
   "dependencies": {
     "clsx": "^2.1.1",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.7",
     "next": "16.1.6",
     "react": "19.2.3",
     "react-dom": "19.2.3",
@@ -34,5 +37,8 @@
     "tailwindcss": "^4",
     "ts-jest": "^29.4.6",
     "typescript": "^5"
+  },
+  "lint-staged": {
+    "**/*": "prettier --write --ignore-unknown"
   }
 }
