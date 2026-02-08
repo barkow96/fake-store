@@ -2,15 +2,15 @@ import { ProductService } from "@/services";
 import { CategoryView } from "@/views";
 
 type Props = {
-  params: Promise<{ categoryName: string }>;
+  params: Promise<{ name: string }>;
 };
 
 export default async function CategoryPage({ params }: Props) {
-  const { categoryName } = await params;
-  const decodedCategory = decodeURIComponent(categoryName);
+  const { name: categoryName } = await params;
+  const decodedCategoryName = decodeURIComponent(categoryName);
 
   const productsInCategory =
-    await ProductService.getProductsInCategory(decodedCategory);
+    await ProductService.getProductsInCategory(decodedCategoryName);
 
   return <CategoryView productsInCategory={productsInCategory} />;
 }

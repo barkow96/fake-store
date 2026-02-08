@@ -10,8 +10,8 @@ export const HomeView = ({ categories }: Props) => {
   return (
     <div className={cn("mx-auto max-w-7xl", "px-xl py-3xl")}>
       <ViewHeader
-        title="Shop by Category"
-        description="Browse our curated collection of products"
+        title="Your Store For Fake Products"
+        description="Browse our curated collection of fake products"
       />
 
       <div
