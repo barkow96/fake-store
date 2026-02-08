@@ -1,7 +1,7 @@
 "use client";
 import { useCart } from "@/contexts";
 import { ProductService } from "@/services";
-import { Product } from "@/types";
+import { CartProductId, Product } from "@/types";
 import { logError } from "@/utils";
 import { CartView } from "@/views";
 import { useEffect, useState } from "react";
@@ -12,7 +12,7 @@ export default function CartPage() {
   const [isLoading, setIsLoading] = useState(true);
 
   const handleQuantityChange = async (
-    productId: number,
+    productId: CartProductId,
     quantityChange: number,
   ): Promise<void> => {
     if (!cart) return;
@@ -22,7 +22,7 @@ export default function CartPage() {
     await updateCart(productsDiff);
   };
 
-  const handleRemove = async (productId: number): Promise<void> => {
+  const handleRemove = async (productId: CartProductId): Promise<void> => {
     if (!cart) return;
 
     const product = cart.products.find((p) => p.productId === productId);

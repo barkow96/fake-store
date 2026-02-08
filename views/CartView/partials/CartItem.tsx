@@ -12,13 +12,13 @@ type Props = {
   onRemove: () => void;
 };
 
-export function CartItem({
+export const CartItem = ({
   product,
   quantity,
   onIncrease,
   onDecrease,
   onRemove,
-}: Props) {
+}: Props) => {
   const totalPrice = product.price * quantity;
 
   return (
@@ -165,4 +165,4 @@ export function CartItem({
       </div>
     </div>
   );
-}
+};
