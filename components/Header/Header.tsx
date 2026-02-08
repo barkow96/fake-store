@@ -7,7 +7,8 @@ export function Header() {
   return (
     <header
       className={cn(
-        "sticky top-0 z-50",
+        `sticky top-0 z-50 h-[140px] px-sm`,
+        "flex items-center justify-between",
         "bg-card/95 backdrop-blur-sm",
         "border-b border-border",
         "shadow-sm",
@@ -15,9 +16,8 @@ export function Header() {
     >
       <div
         className={cn(
-          "mx-auto max-w-7xl",
+          "mx-auto max-w-7xl w-full",
           "flex items-center justify-between",
-          "px-xl py-xl",
         )}
       >
         <Link

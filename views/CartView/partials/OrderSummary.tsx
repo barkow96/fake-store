@@ -13,8 +13,9 @@ export const OrderSummary = ({ totalItems, totalPrice }: Props) => {
         "sticky top-lg",
         "rounded-xl bg-card",
         "border-2 border-border",
-        "p-2xl",
+        "p-lg",
         "shadow-md",
+        "top-[calc(140px+var(--spacing-lg))]",
       )}
     >
       <h2
