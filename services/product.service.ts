@@ -1,3 +1,4 @@
+import { CACHE_REVALIDATE_5_MINUTES } from "@/configs";
 import { OApiEndpointUrl } from "@/constants";
 import { apiToAppProductsList, assureProduct } from "@/mappers";
 import type { GetProductParams, Product, ProductsInCategory } from "@/types";
@@ -11,6 +12,7 @@ export const ProductService = {
     const response = await fetch(url, {
       method: "GET",
       headers: serviceConfig.headers,
+      next: { revalidate: CACHE_REVALIDATE_5_MINUTES },
     }).catch((error) => {
       logError("Failed to fetch product by id", { url, error, id });
     });
@@ -37,6 +39,7 @@ export const ProductService = {
     const response = await fetch(url, {
       method: "GET",
       headers: serviceConfig.headers,
+      next: { revalidate: CACHE_REVALIDATE_5_MINUTES },
     }).catch((error) => {
       logError("Failed to fetch products", { url, error });
     });
@@ -68,20 +71,5 @@ export const ProductService = {
       category,
       products: products.filter((product) => product.category === category),
     };
-  },
-
-  async getProductsInAllCategories(): Promise<ProductsInCategory[]> {
-    const products = await this.getProducts();
-    const categoriesMap = new Map<string, Product[]>();
-
-    products.forEach((product) => {
-      const existing = categoriesMap.get(product.category) || [];
-      categoriesMap.set(product.category, [...existing, product]);
-    });
-
-    return Array.from(categoriesMap.entries()).map(([category, products]) => ({
-      category,
-      products,
-    }));
   },
 };

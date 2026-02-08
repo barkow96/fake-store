@@ -1,0 +1,3 @@
+export const CACHE_REVALIDATE_1_MINUTE = 60 * 1;
+export const CACHE_REVALIDATE_5_MINUTES = 60 * 5;
+export const CACHE_REVALIDATE_1_HOUR = 60 * 60 * 1;
