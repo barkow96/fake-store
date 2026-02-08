@@ -1,4 +1,4 @@
-import { ViewHeader } from "@/components";
+import { ViewContainer, ViewHeader } from "@/components";
 import { cn } from "@/utils";
 import { CategoryCard } from "./partials";
 
@@ -8,7 +8,7 @@ type Props = {
 
 export const HomeView = ({ categories }: Props) => {
   return (
-    <div className={cn("mx-auto max-w-7xl", "px-xl py-3xl")}>
+    <ViewContainer>
       <ViewHeader
         title="Your Store For Fake Products"
         description="Browse our curated collection of fake products"
@@ -24,6 +24,6 @@ export const HomeView = ({ categories }: Props) => {
           <CategoryCard key={`category-${category}`} category={category} />
         ))}
       </div>
-    </div>
+    </ViewContainer>
   );
 };

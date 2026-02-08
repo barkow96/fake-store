@@ -15,9 +15,9 @@ export const CategoryCard = ({ category }: Props) => {
         "group flex h-full flex-col justify-between",
         "min-h-[160px]",
         // Styling
-        "rounded-xl bg-card",
+        "rounded-lg bg-card",
         "border-2 border-border",
-        "p-2xl",
+        "p-lg",
         // Effects
         "shadow-sm hover:shadow-lg",
         "transition-all duration-base ease-out",

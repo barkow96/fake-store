@@ -13,7 +13,7 @@ export const ProductCard = ({ product }: Props) => {
         // Layout
         "group flex flex-col h-full",
         // Styling
-        "rounded-xl bg-card",
+        "rounded-lg bg-card",
         "border-2 border-border",
         "p-xl",
         // Effects

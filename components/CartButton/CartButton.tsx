@@ -23,7 +23,7 @@ export const CartButton = () => {
       aria-label={`Go to shopping cart (${itemsCount ?? 0} items)`}
     >
       <BiCart size={24} className="shrink-0" />
-      <span>Cart</span>
+      <span className="hidden sm:block text-lg">Cart</span>
       {hasItems && (
         <span
           className={cn(

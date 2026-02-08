@@ -1,4 +1,4 @@
-import { ViewHeader } from "@/components";
+import { ViewContainer, ViewHeader } from "@/components";
 import { ProductsInCategory } from "@/types";
 import { cn } from "@/utils";
 import { ProductCard } from "./partials";
@@ -9,7 +9,7 @@ export const CategoryView = ({ productsInCategory }: Props) => {
   const { category, products } = productsInCategory;
 
   return (
-    <div className={cn("mx-auto max-w-7xl", "px-xl py-3xl")}>
+    <ViewContainer>
       <ViewHeader
         title={category}
         description={`${products.length} products available`}
@@ -26,6 +26,6 @@ export const CategoryView = ({ productsInCategory }: Props) => {
           <ProductCard key={`product-${product.id}`} product={product} />
         ))}
       </div>
-    </div>
+    </ViewContainer>
   );
 };

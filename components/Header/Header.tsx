@@ -31,6 +31,7 @@ export function Header() {
             className={cn(
               "text-3xl font-bold",
               "text-foreground",
+              "tracking-widest",
               "flex items-center",
             )}
           >
