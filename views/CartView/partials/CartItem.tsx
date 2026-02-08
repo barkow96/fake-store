@@ -1,16 +1,17 @@
 "use client";
 import { Button } from "@/components";
-import { Product } from "@/types";
+import { IsSuccess, Product } from "@/types";
 import { cn, formatMoney } from "@/utils";
 import Image from "next/image";
 import { BiMinus, BiPlus, BiTrash } from "react-icons/bi";
+import { toast } from "sonner";
 
 type Props = {
   product: Product;
   quantity: number;
-  onIncrease: () => void;
-  onDecrease: () => void;
-  onRemove: () => void;
+  onIncrease: () => Promise<IsSuccess>;
+  onDecrease: () => Promise<IsSuccess>;
+  onRemove: () => Promise<IsSuccess>;
 };
 
 export const CartItem = ({
@@ -21,6 +22,24 @@ export const CartItem = ({
   onRemove,
 }: Props) => {
   const totalPrice = product.price * quantity;
+
+  const handleIncrease = async () => {
+    const isSuccess = await onIncrease();
+    if (isSuccess) toast.success("Successfully increased quantity");
+    else toast.error("Failed to increase quantity");
+  };
+
+  const handleDecrease = async () => {
+    const isSuccess = await onDecrease();
+    if (isSuccess) toast.success("Successfully decreased quantity");
+    else toast.error("Failed to increase quantity");
+  };
+
+  const handleRemove = async () => {
+    const isSuccess = await onRemove();
+    if (isSuccess) toast.success("Successfully removed product from the Cart");
+    else toast.error("Failed to remove product from the Cart");
+  };
 
   return (
     <div
@@ -114,7 +133,7 @@ export const CartItem = ({
           <Button
             variant="icon"
             size="sm"
-            onClick={onDecrease}
+            onClick={handleDecrease}
             disabled={quantity <= 1}
             aria-label="Decrease quantity"
           >
@@ -134,7 +153,7 @@ export const CartItem = ({
           <Button
             variant="icon"
             size="sm"
-            onClick={onIncrease}
+            onClick={handleIncrease}
             aria-label="Increase quantity"
           >
             <BiPlus size={18} />
@@ -145,7 +164,7 @@ export const CartItem = ({
         <Button
           variant="ghost"
           size="sm"
-          onClick={onRemove}
+          onClick={handleRemove}
           aria-label="Remove from cart"
         >
           <BiTrash size={18} className="shrink-0" />

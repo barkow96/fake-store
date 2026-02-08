@@ -1,7 +1,7 @@
 "use client";
 import { useCart } from "@/contexts";
 import { ProductService } from "@/services";
-import { CartProductId, Product } from "@/types";
+import { CartProductId, IsSuccess, Product } from "@/types";
 import { logError } from "@/utils";
 import { CartView } from "@/views";
 import { useEffect, useState } from "react";
@@ -14,23 +14,25 @@ export default function CartPage() {
   const handleQuantityChange = async (
     productId: CartProductId,
     quantityChange: number,
-  ): Promise<void> => {
-    if (!cart) return;
+  ): Promise<IsSuccess> => {
+    if (!cart) return false;
 
     const productsDiff = [{ productId, quantity: quantityChange }];
 
-    await updateCart(productsDiff);
+    const isSuccess = await updateCart(productsDiff);
+    return isSuccess;
   };
 
-  const handleRemove = async (productId: CartProductId): Promise<void> => {
-    if (!cart) return;
+  const handleRemove = async (productId: CartProductId): Promise<IsSuccess> => {
+    if (!cart) return false;
 
     const product = cart.products.find((p) => p.productId === productId);
-    if (!product) return;
+    if (!product) return false;
 
     const productsDiff = [{ productId, quantity: -product.quantity }];
 
-    await updateCart(productsDiff);
+    const isSuccess = await updateCart(productsDiff);
+    return isSuccess;
   };
 
   const totalItems =

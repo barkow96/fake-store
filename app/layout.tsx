@@ -1,4 +1,4 @@
-import { Header } from "@/components";
+import { Header, Toaster } from "@/components";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
@@ -34,6 +34,7 @@ export default function RootLayout({
           {/* <CartDebugInfo /> */}
           <Header />
           <main className="min-h-screen">{children}</main>
+          <Toaster />
         </body>
       </Providers>
     </html>

@@ -1,6 +1,6 @@
 "use client";
 import { ViewHeader } from "@/components";
-import { Cart, Product } from "@/types";
+import { Cart, CartProductId, IsSuccess, Product } from "@/types";
 import { cn } from "@/utils";
 import { CartEmpty, CartItem, CartLoading, OrderSummary } from "./partials";
 
@@ -11,8 +11,11 @@ type Props = {
   products: Product[];
   totalItems: number;
   totalPrice: number;
-  onQuantityChange: (productId: number, quantityChange: number) => void;
-  onRemove: (productId: number) => void;
+  onQuantityChange: (
+    productId: CartProductId,
+    quantityChange: number,
+  ) => Promise<IsSuccess>;
+  onRemove: (productId: CartProductId) => Promise<IsSuccess>;
 };
 
 export const CartView = ({

@@ -2,7 +2,14 @@
 import { OLocalStorageKey } from "@/constants";
 import { isNumber } from "@/mappers";
 import { CartService } from "@/services";
-import { Cart, CartId, CartProduct, UpdateCartParams, UserId } from "@/types";
+import {
+  Cart,
+  CartId,
+  CartProduct,
+  IsSuccess,
+  UpdateCartParams,
+  UserId,
+} from "@/types";
 import {
   getLocalStorageItem,
   logInfo,
@@ -31,7 +38,7 @@ type CartContextType = {
   isInitialized: boolean;
   clearCart: () => void;
   refreshCart: () => void;
-  updateCart: (cartProducts: CartProduct[]) => Promise<void>;
+  updateCart: (cartProducts: CartProduct[]) => Promise<IsSuccess>;
 };
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -42,12 +49,14 @@ export function CartProvider({ children }: PropsWithChildren) {
   const [cartId, setCartId] = useState<CartId | null>(null);
   const [isInitialized, setIsInitialized] = useState(false);
 
-  const updateCart = async (productsDiff: CartProduct[]): Promise<void> => {
+  const updateCart = async (
+    productsDiff: CartProduct[],
+  ): Promise<IsSuccess> => {
     if (!cartId || !userId || !cart) {
       logWarn(
         "CartProvider updateCart: Missing cartId, userId, or cart, skipping update",
       );
-      return;
+      return false;
     }
 
     const mergedProducts = mergeCartProducts(cart.products, productsDiff);
@@ -72,7 +81,7 @@ export function CartProvider({ children }: PropsWithChildren) {
 
     if (!updatedCart) {
       logWarn("CartProvider updateCart: failed to update cart");
-      return;
+      return false;
     }
 
     const newCart: Cart = {
@@ -83,6 +92,7 @@ export function CartProvider({ children }: PropsWithChildren) {
 
     saveToLocalStorage(newCart);
     setCart(newCart);
+    return true;
   };
 
   const loadFromLocalStorage = (): {
