@@ -15,7 +15,7 @@ export const OrderSummary = ({ totalItems, totalPrice }: Props) => {
         "border-2 border-border",
         "p-md",
         "shadow-md",
-        "top-[calc(140px+var(--spacing-lg))]",
+        "top-[calc(100px+var(--spacing-lg))]",
       )}
     >
       <h2

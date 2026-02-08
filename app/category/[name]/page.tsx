@@ -1,10 +1,31 @@
+import { createCategoryJsonLdSchema } from "@/mappers";
 import { ProductService } from "@/services";
 import { CategoryView } from "@/views";
-import type { Metadata } from "next";
+import { Metadata } from "next";
 
 type Props = {
   params: Promise<{ name: string }>;
 };
+
+export default async function CategoryPage({ params }: Props) {
+  const { name: categoryName } = await params;
+  const decodedCategoryName = decodeURIComponent(categoryName);
+
+  const productsInCategory =
+    await ProductService.getProductsInCategory(decodedCategoryName);
+
+  const jsonLd = createCategoryJsonLdSchema(productsInCategory);
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <CategoryView productsInCategory={productsInCategory} />
+    </>
+  );
+}
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { name: categoryName } = await params;
@@ -22,14 +43,4 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description,
     },
   };
-}
-
-export default async function CategoryPage({ params }: Props) {
-  const { name: categoryName } = await params;
-  const decodedCategoryName = decodeURIComponent(categoryName);
-
-  const productsInCategory =
-    await ProductService.getProductsInCategory(decodedCategoryName);
-
-  return <CategoryView productsInCategory={productsInCategory} />;
 }
