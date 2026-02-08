@@ -9,7 +9,7 @@ import type {
   UpdateCartParams,
 } from "@/types";
 import { logError } from "@/utils";
-import { getCommonHeaders } from "./config";
+import { serviceConfig } from "./serviceConfig";
 
 export const CartService = {
   async getCart({ id }: GetCartParams): Promise<Cart | undefined> {
@@ -17,7 +17,7 @@ export const CartService = {
 
     const response = await fetch(url, {
       method: "GET",
-      headers: getCommonHeaders(),
+      headers: serviceConfig.headers,
     }).catch((error) => {
       logError("Failed to fetch cart by id", { url, error, id });
     });
@@ -44,7 +44,7 @@ export const CartService = {
 
     const response = await fetch(url, {
       method: "POST",
-      headers: getCommonHeaders(),
+      headers: serviceConfig.headers,
     }).catch((error) => {
       logError("Failed to create cart", { url, error });
     });
@@ -70,7 +70,7 @@ export const CartService = {
 
     const response = await fetch(url, {
       method: "PUT",
-      headers: getCommonHeaders(),
+      headers: serviceConfig.headers,
       body: JSON.stringify(params),
     }).catch((error) => {
       logError("Failed to update cart", { url, error, params });
@@ -98,7 +98,7 @@ export const CartService = {
 
     const response = await fetch(url, {
       method: "DELETE",
-      headers: getCommonHeaders(),
+      headers: serviceConfig.headers,
     }).catch((error) => {
       logError("Failed to delete cart", { url, error, params });
     });

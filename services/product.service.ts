@@ -2,7 +2,7 @@ import { OApiEndpointUrl } from "@/constants";
 import { apiToAppProductsList, assureProduct } from "@/mappers";
 import type { GetProductParams, Product, ProductsInCategory } from "@/types";
 import { logError } from "@/utils";
-import { getCommonHeaders } from "./config";
+import { serviceConfig } from "./serviceConfig";
 
 export const ProductService = {
   async getProduct({ id }: GetProductParams): Promise<Product | undefined> {
@@ -10,7 +10,7 @@ export const ProductService = {
 
     const response = await fetch(url, {
       method: "GET",
-      headers: getCommonHeaders(),
+      headers: serviceConfig.headers,
     }).catch((error) => {
       logError("Failed to fetch product by id", { url, error, id });
     });
@@ -36,7 +36,7 @@ export const ProductService = {
 
     const response = await fetch(url, {
       method: "GET",
-      headers: getCommonHeaders(),
+      headers: serviceConfig.headers,
     }).catch((error) => {
       logError("Failed to fetch products", { url, error });
     });
