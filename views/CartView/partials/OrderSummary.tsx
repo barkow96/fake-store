@@ -1,4 +1,5 @@
-import { Button } from "@/components";
+import { ButtonAsLink } from "@/components";
+import { ORoute } from "@/constants";
 import { cn, formatMoney } from "@/utils";
 
 type Props = {
@@ -66,9 +67,15 @@ export const OrderSummary = ({ totalItems, totalPrice }: Props) => {
         </div>
       </div>
 
-      <Button variant="primary" size="md" className="px-sm" fullWidth>
+      <ButtonAsLink
+        href={ORoute.Checkout}
+        variant="primary"
+        size="md"
+        className="px-sm"
+        fullWidth
+      >
         Proceed to Checkout
-      </Button>
+      </ButtonAsLink>
 
       <p className={cn("mt-lg text-center text-xs text-muted-foreground")}>
         Secure checkout powered by Stripe

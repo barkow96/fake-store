@@ -1,5 +1,6 @@
 export const ORoute = {
-  HOME: "/",
-  CATEGORY: "/category",
-  CART: "/cart",
+  Home: "/",
+  Category: "/category",
+  Cart: "/cart",
+  Checkout: "/checkout",
 } as const;

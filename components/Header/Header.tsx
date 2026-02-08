@@ -21,7 +21,7 @@ export function Header() {
         )}
       >
         <Link
-          href={ORoute.HOME}
+          href={ORoute.Home}
           className={cn(
             "transition-all duration-fast ease-out",
             "hover:opacity-80",

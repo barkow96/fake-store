@@ -19,7 +19,7 @@ export const ViewHeader = ({
       {withHomeLink && (
         <div className={cn("mb-sm")}>
           <Link
-            href={ORoute.HOME}
+            href={ORoute.Home}
             className={cn(
               "inline-flex items-center gap-sm",
               "text-base font-medium",

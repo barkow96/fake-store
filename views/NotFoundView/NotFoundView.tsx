@@ -35,7 +35,7 @@ export const NotFoundView = () => {
       </p>
 
       <ButtonAsLink
-        href={ORoute.HOME}
+        href={ORoute.Home}
         variant="primary"
         size="md"
         className="w-[200px]"

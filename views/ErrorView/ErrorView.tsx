@@ -56,7 +56,7 @@ export const ErrorView = ({ error }: Props) => {
         <Button
           variant="primary"
           size="lg"
-          onClick={() => (window.location.href = ORoute.HOME)}
+          onClick={() => (window.location.href = ORoute.Home)}
         >
           Try again
         </Button>

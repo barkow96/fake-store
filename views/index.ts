@@ -3,3 +3,4 @@ export * from "./CategoryView";
 export * from "./ErrorView";
 export * from "./HomeView";
 export * from "./NotFoundView";
+export * from "./CheckoutView";

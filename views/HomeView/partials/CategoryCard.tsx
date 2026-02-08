@@ -9,7 +9,7 @@ export const CategoryCard = ({ category }: Props) => {
   return (
     <Link
       key={category}
-      href={`${ORoute.CATEGORY}/${encodeURIComponent(category)}`}
+      href={`${ORoute.Category}/${encodeURIComponent(category)}`}
       className={cn(
         // Layout
         "group flex h-full flex-col justify-between",

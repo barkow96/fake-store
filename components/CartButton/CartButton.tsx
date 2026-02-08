@@ -17,7 +17,7 @@ export const CartButton = () => {
 
   return (
     <ButtonAsLink
-      href={ORoute.CART}
+      href={ORoute.Cart}
       variant="primary"
       size="sm"
       aria-label={`Go to shopping cart (${itemsCount ?? 0} items)`}
