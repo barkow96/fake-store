@@ -1,3 +1,4 @@
+import { serviceConfig } from "@/configs";
 import { OApiEndpointUrl } from "@/constants";
 import { assureCart, assureEntryId } from "@/mappers";
 import type {
@@ -9,7 +10,6 @@ import type {
   UpdateCartParams,
 } from "@/types";
 import { logError } from "@/utils";
-import { serviceConfig } from "./serviceConfig";
 
 export const CartService = {
   async getCart({ id }: GetCartParams): Promise<Cart | undefined> {

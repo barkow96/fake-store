@@ -1,9 +1,8 @@
-import { CACHE_REVALIDATE_5_MINUTES } from "@/configs";
+import { CACHE_REVALIDATE_5_MINUTES, serviceConfig } from "@/configs";
 import { OApiEndpointUrl } from "@/constants";
 import { apiToAppProductsList, assureProduct } from "@/mappers";
 import type { GetProductParams, Product, ProductsInCategory } from "@/types";
 import { logError } from "@/utils";
-import { serviceConfig } from "./serviceConfig";
 
 export const ProductService = {
   async getProduct({ id }: GetProductParams): Promise<Product | undefined> {
