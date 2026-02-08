@@ -1,4 +1,5 @@
 "use client";
+import { Button } from "@/components";
 import { Product } from "@/types";
 import { cn, formatMoney } from "@/utils";
 import Image from "next/image";
@@ -65,10 +66,7 @@ export const CartItem = ({
             {product.title}
           </h3>
           <p
-            className={cn(
-              "mt-sm text-sm capitalize",
-              "text-muted-foreground",
-            )}
+            className={cn("mt-sm text-sm capitalize", "text-muted-foreground")}
           >
             {product.category}
           </p>
@@ -86,24 +84,16 @@ export const CartItem = ({
       </div>
 
       {/* Controls */}
-      <div
-        className={cn(
-          "flex flex-col items-end gap-lg",
-          "flex-shrink-0",
-        )}
-      >
+      <div className={cn("flex flex-col items-end gap-lg", "flex-shrink-0")}>
         {/* Remove Button */}
-        <button
+        <Button
+          variant="ghost"
+          size="sm"
           onClick={onRemove}
-          className={cn(
-            "p-sm rounded-md",
-            "text-muted-foreground hover:text-error",
-            "transition-colors duration-fast ease-out",
-          )}
           aria-label="Remove from cart"
         >
           <BiTrash size={20} />
-        </button>
+        </Button>
 
         {/* Quantity Controls */}
         <div
@@ -114,21 +104,15 @@ export const CartItem = ({
             "border-2 border-border",
           )}
         >
-          <button
+          <Button
+            variant="icon"
+            size="md"
             onClick={onDecrease}
-            className={cn(
-              "flex items-center justify-center",
-              "w-10 h-10 rounded-md",
-              "bg-card text-foreground",
-              "transition-all duration-fast ease-out",
-              "hover:bg-accent hover:text-accent-foreground",
-              "disabled:opacity-40 disabled:cursor-not-allowed",
-            )}
             disabled={quantity <= 1}
             aria-label="Decrease quantity"
           >
             <BiMinus size={18} />
-          </button>
+          </Button>
 
           <span
             className={cn(
@@ -140,19 +124,14 @@ export const CartItem = ({
             {quantity}
           </span>
 
-          <button
+          <Button
+            variant="icon"
+            size="md"
             onClick={onIncrease}
-            className={cn(
-              "flex items-center justify-center",
-              "w-10 h-10 rounded-md",
-              "bg-card text-foreground",
-              "transition-all duration-fast ease-out",
-              "hover:bg-accent hover:text-accent-foreground",
-            )}
             aria-label="Increase quantity"
           >
             <BiPlus size={18} />
-          </button>
+          </Button>
         </div>
       </div>
     </div>

@@ -1,4 +1,5 @@
 "use client";
+import { Button } from "@/components";
 import { useCart } from "@/contexts";
 import { cn } from "@/utils";
 
@@ -58,34 +59,17 @@ export function CartDebugInfo() {
       </div>
 
       <div className={cn("mt-md flex gap-xs")}>
-        <button
-          onClick={refreshCart}
-          className={cn(
-            "flex-1",
-            "rounded-sm",
-            "bg-secondary text-secondary-foreground",
-            "px-sm py-xs",
-            "text-xs font-bold",
-            "transition-all duration-fast ease-out",
-            "hover:bg-accent hover:text-accent-foreground",
-          )}
-        >
+        <Button variant="secondary" size="sm" onClick={refreshCart}>
           Refresh
-        </button>
-        <button
+        </Button>
+        <Button
+          variant="primary"
+          size="sm"
           onClick={clearCart}
-          className={cn(
-            "flex-1",
-            "rounded-sm",
-            "bg-error text-white",
-            "px-sm py-xs",
-            "text-xs font-bold",
-            "transition-all duration-fast ease-out",
-            "hover:opacity-80",
-          )}
+          className="bg-error hover:bg-error"
         >
           Clear
-        </button>
+        </Button>
       </div>
     </div>
   );

@@ -1,3 +1,4 @@
+import { Button } from "@/components";
 import { cn, formatMoney } from "@/utils";
 
 type Props = {
@@ -36,19 +37,19 @@ export const OrderSummary = ({ totalItems, totalPrice }: Props) => {
             {formatMoney(totalPrice)}
           </span>
         </div>
-        
+
         <div className={cn("flex justify-between items-center", "text-base")}>
           <span className={cn("text-muted-foreground")}>Shipping</span>
           <span className={cn("font-semibold text-success")}>Free</span>
         </div>
-        
+
         <div className={cn("flex justify-between items-center", "text-base")}>
           <span className={cn("text-muted-foreground")}>Tax</span>
           <span className={cn("font-semibold text-foreground")}>
             Calculated at checkout
           </span>
         </div>
-        
+
         <div
           className={cn(
             "pt-lg mt-lg",
@@ -63,21 +64,10 @@ export const OrderSummary = ({ totalItems, totalPrice }: Props) => {
         </div>
       </div>
 
-      <button
-        className={cn(
-          "w-full",
-          "rounded-xl",
-          "bg-accent text-accent-foreground",
-          "px-2xl py-lg",
-          "text-lg font-bold",
-          "shadow-md hover:shadow-lg",
-          "transition-all duration-base ease-out",
-          "hover:opacity-90 hover:-translate-y-0.5",
-        )}
-      >
+      <Button variant="primary" size="lg" fullWidth>
         Proceed to Checkout
-      </button>
-      
+      </Button>
+
       <p className={cn("mt-lg text-center text-xs text-muted-foreground")}>
         Secure checkout powered by Stripe
       </p>
