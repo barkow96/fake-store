@@ -1,4 +1,4 @@
-import { Header, Toaster } from "@/components";
+import { Footer, Header, Toaster } from "@/components";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
@@ -37,9 +37,12 @@ export default function RootLayout({
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
-          <Header />
-          <main className="min-h-screen">{children}</main>
           <Toaster />
+          <Header />
+
+          <main className="min-h-screen">{children}</main>
+
+          <Footer />
         </body>
       </Providers>
     </html>
