@@ -1,6 +1,7 @@
 import { ORoute } from "@/constants";
 import { cn } from "@/utils";
-import { BackLink } from "../BackLink";
+import Link from "next/link";
+import { BiArrowToLeft } from "react-icons/bi";
 
 type Props = {
   title: string;
@@ -14,20 +15,38 @@ export const ViewHeader = ({
   withHomeLink = false,
 }: Props) => {
   return (
-    <div className={cn("mb-3xl")}>
+    <div className={cn("mb-xl")}>
       {withHomeLink && (
-        <div className={cn("mb-xl")}>
-          <BackLink href={ORoute.HOME}>Back to Home</BackLink>
+        <div className={cn("mb-sm")}>
+          <Link
+            href={ORoute.HOME}
+            className={cn(
+              "inline-flex items-center gap-sm",
+              "text-base font-medium",
+              "text-muted-foreground hover:text-accent",
+              "transition-colors duration-fast ease-out",
+              "group",
+            )}
+          >
+            <BiArrowToLeft
+              size={20}
+              className={cn(
+                "transition-transform duration-fast ease-out",
+                "group-hover:-translate-x-1",
+              )}
+            />
+            Back To Home
+          </Link>
         </div>
       )}
 
-      <div>
+      <div className="flex flex-col gap-sm">
         <h1 className={cn("text-5xl font-bold capitalize", "text-foreground")}>
           {title}
         </h1>
 
         {description && (
-          <p className={cn("mt-lg text-lg", "text-muted-foreground")}>
+          <p className={cn("text-lg", "text-muted-foreground")}>
             {description}
           </p>
         )}
