@@ -14,20 +14,24 @@ export const ViewHeader = ({
   withHomeLink = false,
 }: Props) => {
   return (
-    <div className={cn("mb-spacing-xl")}>
+    <div className={cn("mb-3xl")}>
       {withHomeLink && (
-        <BackLink href={ORoute.HOME}>Back to Home Page</BackLink>
+        <div className={cn("mb-xl")}>
+          <BackLink href={ORoute.HOME}>Back to Home</BackLink>
+        </div>
       )}
 
-      <h2 className={cn("text-3xl font-bold capitalize", "text-foreground")}>
-        {title}
-      </h2>
+      <div>
+        <h1 className={cn("text-5xl font-bold capitalize", "text-foreground")}>
+          {title}
+        </h1>
 
-      {description && (
-        <p className={cn("mt-spacing-sm", "text-muted-foreground")}>
-          {description}
-        </p>
-      )}
+        {description && (
+          <p className={cn("mt-lg text-lg", "text-muted-foreground")}>
+            {description}
+          </p>
+        )}
+      </div>
     </div>
   );
 };

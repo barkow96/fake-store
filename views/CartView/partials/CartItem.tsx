@@ -24,40 +24,40 @@ export const CartItem = ({
   return (
     <div
       className={cn(
-        "flex gap-spacing-lg",
-        "rounded-radius-lg",
-        "bg-card",
-        "border border-border",
-        "p-spacing-lg",
-        "shadow-sm",
-        "transition-all hover:shadow-md",
+        // Layout
+        "flex gap-xl items-start",
+        // Styling
+        "rounded-xl bg-card",
+        "border-2 border-border",
+        "p-xl",
+        // Effects
+        "shadow-sm hover:shadow-md",
+        "transition-all duration-base ease-out",
       )}
     >
       {/* Product Image */}
       <div
         className={cn(
-          "flex-shrink-0",
-          "w-24 h-24",
-          "rounded-radius-md",
-          "bg-secondary",
+          "relative flex-shrink-0",
+          "w-28 h-28",
+          "rounded-lg bg-secondary/50",
           "overflow-hidden",
         )}
       >
         <Image
           src={product.image}
           alt={product.title}
-          width={96}
-          height={96}
-          className={cn("w-full h-full", "object-contain", "p-spacing-sm")}
+          fill
+          className={cn("object-contain p-md")}
         />
       </div>
 
       {/* Product Details */}
-      <div className={cn("flex-1", "flex flex-col justify-between", "min-w-0")}>
+      <div className={cn("flex-1 min-w-0 space-y-md")}>
         <div>
           <h3
             className={cn(
-              "text-base font-semibold",
+              "text-lg font-semibold leading-tight",
               "text-card-foreground",
               "line-clamp-2",
             )}
@@ -66,33 +66,29 @@ export const CartItem = ({
           </h3>
           <p
             className={cn(
-              "mt-spacing-xs",
-              "text-sm",
+              "mt-sm text-sm capitalize",
               "text-muted-foreground",
-              "capitalize",
             )}
           >
             {product.category}
           </p>
         </div>
 
-        {/* Price */}
-        <div
-          className={cn("flex items-center gap-spacing-sm", "mt-spacing-sm")}
-        >
-          <span className={cn("text-sm", "text-muted-foreground")}>
-            {formatMoney(product.price)} each
+        {/* Price Info */}
+        <div className={cn("flex items-baseline gap-md flex-wrap")}>
+          <span className={cn("text-sm text-muted-foreground")}>
+            {formatMoney(product.price)} × {quantity}
           </span>
-          <span className={cn("text-lg font-bold", "text-foreground")}>
+          <span className={cn("text-2xl font-bold text-accent")}>
             {formatMoney(totalPrice)}
           </span>
         </div>
       </div>
 
-      {/* Quantity Controls */}
+      {/* Controls */}
       <div
         className={cn(
-          "flex flex-col items-end justify-between",
+          "flex flex-col items-end gap-lg",
           "flex-shrink-0",
         )}
       >
@@ -100,10 +96,9 @@ export const CartItem = ({
         <button
           onClick={onRemove}
           className={cn(
-            "rounded-radius-sm",
-            "p-spacing-xs",
-            "text-muted-foreground hover:text-foreground",
-            "transition-colors",
+            "p-sm rounded-md",
+            "text-muted-foreground hover:text-error",
+            "transition-colors duration-fast ease-out",
           )}
           aria-label="Remove from cart"
         >
@@ -113,34 +108,32 @@ export const CartItem = ({
         {/* Quantity Controls */}
         <div
           className={cn(
-            "flex items-center gap-spacing-sm",
-            "rounded-radius-md",
-            "bg-secondary",
-            "p-spacing-xs",
+            "flex items-center gap-sm",
+            "rounded-lg bg-secondary/30",
+            "p-sm",
+            "border-2 border-border",
           )}
         >
           <button
             onClick={onDecrease}
             className={cn(
               "flex items-center justify-center",
-              "w-8 h-8",
-              "rounded-radius-sm",
-              "bg-card",
-              "text-foreground",
-              "transition-all hover:bg-primary hover:text-primary-foreground",
-              "disabled:opacity-50 disabled:cursor-not-allowed",
+              "w-10 h-10 rounded-md",
+              "bg-card text-foreground",
+              "transition-all duration-fast ease-out",
+              "hover:bg-accent hover:text-accent-foreground",
+              "disabled:opacity-40 disabled:cursor-not-allowed",
             )}
             disabled={quantity <= 1}
             aria-label="Decrease quantity"
           >
-            <BiMinus size={20} />
+            <BiMinus size={18} />
           </button>
 
           <span
             className={cn(
-              "min-w-[2rem]",
-              "text-center",
-              "text-sm font-semibold",
+              "min-w-[2.5rem] text-center",
+              "text-sm font-bold tabular-nums",
               "text-foreground",
             )}
           >
@@ -151,15 +144,14 @@ export const CartItem = ({
             onClick={onIncrease}
             className={cn(
               "flex items-center justify-center",
-              "w-8 h-8",
-              "rounded-radius-sm",
-              "bg-card",
-              "text-foreground",
-              "transition-all hover:bg-primary hover:text-primary-foreground",
+              "w-10 h-10 rounded-md",
+              "bg-card text-foreground",
+              "transition-all duration-fast ease-out",
+              "hover:bg-accent hover:text-accent-foreground",
             )}
             aria-label="Increase quantity"
           >
-            <BiPlus size={20} />
+            <BiPlus size={18} />
           </button>
         </div>
       </div>

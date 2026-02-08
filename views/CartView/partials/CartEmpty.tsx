@@ -5,26 +5,34 @@ export const CartEmpty = () => {
   return (
     <div
       className={cn(
-        "rounded-radius-lg",
-        "bg-card",
-        "border border-border",
-        "p-spacing-2xl",
-        "text-center",
+        // Layout
         "flex flex-col items-center justify-center",
+        "min-h-[450px]",
+        // Styling
+        "rounded-2xl bg-card",
+        "border-2 border-dashed border-border",
+        "p-3xl",
+        "text-center",
       )}
     >
-      <BiCart size={100} />
-      <h2
+      <div
         className={cn(
-          "mt-spacing-lg",
-          "text-xl font-semibold",
-          "text-foreground",
+          "flex items-center justify-center",
+          "w-40 h-40 rounded-full",
+          "bg-secondary/50",
+          "mb-xl",
         )}
       >
+        <BiCart size={80} className={cn("text-muted-foreground")} />
+      </div>
+
+      <h2 className={cn("text-4xl font-bold", "text-foreground", "mb-md")}>
         Your cart is empty
       </h2>
-      <p className={cn("mt-spacing-sm", "text-muted-foreground")}>
-        Add some products to get started
+
+      <p className={cn("text-lg text-muted-foreground", "w-full")}>
+        Looks like you haven&apos;t added anything to your cart yet. Start
+        shopping to fill it up!
       </p>
     </div>
   );

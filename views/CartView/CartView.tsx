@@ -35,7 +35,7 @@ export const CartView = ({
     : `${totalItems} ${totalItems === 1 ? "item" : "items"} in cart`;
 
   return (
-    <main className={cn("mx-auto max-w-7xl", "px-spacing-lg py-spacing-2xl")}>
+    <main className={cn("mx-auto max-w-7xl", "px-xl py-3xl")}>
       <ViewHeader
         title="Shopping Cart"
         description={description}
@@ -45,9 +45,9 @@ export const CartView = ({
       {isEmpty && <CartEmpty />}
 
       {!isEmpty && (
-        <div className={cn("grid gap-spacing-xl", "lg:grid-cols-3")}>
+        <div className={cn("grid gap-2xl", "lg:grid-cols-3")}>
           {/* Cart Items */}
-          <div className={cn("lg:col-span-2", "space-y-spacing-md")}>
+          <div className={cn("lg:col-span-2", "space-y-lg")}>
             {cart.products.map((cartProduct) => {
               const product = products.find(
                 (p) => p.id === cartProduct.productId,

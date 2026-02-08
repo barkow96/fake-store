@@ -10,59 +10,61 @@ export const ProductCard = ({ product }: Props) => {
     <div
       key={product.id}
       className={cn(
-        "group",
-        "flex flex-col",
-        "rounded-radius-lg",
-        "bg-card",
-        "border border-border",
-        "p-spacing-lg",
-        "shadow-sm",
-        "transition-all hover:shadow-md",
+        // Layout
+        "group flex flex-col h-full",
+        // Styling
+        "rounded-xl bg-card",
+        "border-2 border-border",
+        "p-xl",
+        // Effects
+        "shadow-sm hover:shadow-lg",
+        "transition-all duration-base ease-out",
+        "hover:border-accent hover:-translate-y-1",
       )}
     >
+      {/* Product Image */}
       <div
         className={cn(
-          "aspect-square",
-          "overflow-hidden rounded-radius-md",
-          "bg-secondary",
+          "relative aspect-square",
+          "overflow-hidden rounded-lg",
+          "bg-secondary/50",
+          "mb-lg",
         )}
       >
         <Image
           src={product.image}
           alt={product.title}
-          width={100}
-          height={100}
+          fill
           className={cn(
-            "h-full w-full",
             "object-contain",
-            "p-spacing-md",
-            "transition-transform group-hover:scale-105",
+            "p-lg",
+            "transition-transform duration-slow ease-out",
+            "group-hover:scale-110",
           )}
         />
       </div>
 
-      <div className={cn("mt-spacing-md")}>
+      {/* Product Info */}
+      <div className={cn("flex-1 flex flex-col", "space-y-md")}>
         <h3
           className={cn(
-            "line-clamp-2",
-            "text-sm font-semibold",
+            "line-clamp-2 min-h-[2.5rem]",
+            "text-base font-semibold leading-tight",
             "text-card-foreground",
           )}
         >
           {product.title}
         </h3>
-        <p
-          className={cn(
-            "mt-spacing-sm",
-            "text-lg font-bold",
-            "text-foreground",
-          )}
-        >
+
+        <p className={cn("text-2xl font-bold", "text-accent")}>
           {formatMoney(product.price)}
         </p>
       </div>
 
-      <AddToCartButton productId={product.id} />
+      {/* Add to Cart Button */}
+      <div className={cn("mt-lg")}>
+        <AddToCartButton productId={product.id} />
+      </div>
     </div>
   );
 };

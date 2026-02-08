@@ -12,12 +12,20 @@ export function BackLink({ href, children }: Props) {
     <Link
       href={href}
       className={cn(
-        "inline-flex items-center gap-spacing-sm",
-        "text-sm",
-        "text-muted-foreground hover:text-foreground",
+        "inline-flex items-center gap-sm",
+        "text-base font-medium",
+        "text-muted-foreground hover:text-accent",
+        "transition-colors duration-fast ease-out",
+        "group",
       )}
     >
-      <BiArrowToLeft size={16} />
+      <BiArrowToLeft
+        size={20}
+        className={cn(
+          "transition-transform duration-fast ease-out",
+          "group-hover:-translate-x-1",
+        )}
+      />
       {children}
     </Link>
   );

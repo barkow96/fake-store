@@ -3,7 +3,8 @@ import { useCart } from "@/contexts";
 import { cn } from "@/utils";
 
 export function CartDebugInfo() {
-  const { userId, cartId, isInitialized, clearCart, refreshCart } = useCart();
+  const { cart, userId, cartId, isInitialized, clearCart, refreshCart } =
+    useCart();
 
   if (process.env.NODE_ENV !== "development") {
     return null;
@@ -12,43 +13,61 @@ export function CartDebugInfo() {
   return (
     <div
       className={cn(
-        "rounded-radius-md",
-        "bg-card",
-        "border border-border",
-        "p-spacing-md",
-        "shadow-lg",
-        "text-xs",
+        "fixed bottom-md right-md z-50",
+        "rounded-lg",
+        "bg-card/95 backdrop-blur-sm",
+        "border-2 border-accent",
+        "p-md",
+        "shadow-xl",
+        "max-w-xs",
       )}
     >
       <h3
         className={cn(
-          "font-bold text-sm mb-spacing-sm",
-          "text-card-foreground",
+          "text-sm font-bold mb-sm",
+          "text-accent",
+          "border-b border-border pb-xs",
         )}
       >
-        Cart Debug Info
+        🔍 Cart Debug
       </h3>
-      <div className={cn("space-y-spacing-xs", "text-muted-foreground")}>
-        <p>
-          <span className="font-semibold">Initialized:</span>{" "}
-          {isInitialized ? "✅" : "❌"}
+
+      <div className={cn("space-y-xs text-xs", "text-muted-foreground")}>
+        <p className={cn("flex justify-between")}>
+          <span className="font-semibold">Initialized:</span>
+          <span>{isInitialized ? "✅" : "❌"}</span>
         </p>
-        <p>
-          <span className="font-semibold">User ID:</span> {userId || "N/A"}
+        <p className={cn("flex justify-between")}>
+          <span className="font-semibold">User ID:</span>
+          <span className={cn("font-mono text-foreground")}>
+            {userId || "—"}
+          </span>
         </p>
-        <p>
-          <span className="font-semibold">Cart ID:</span> {cartId || "N/A"}
+        <p className={cn("flex justify-between")}>
+          <span className="font-semibold">Cart ID:</span>
+          <span className={cn("font-mono text-foreground")}>
+            {cartId || "—"}
+          </span>
+        </p>
+        <p className={cn("flex justify-between")}>
+          <span className="font-semibold">Items:</span>
+          <span className={cn("font-mono text-foreground")}>
+            {cart?.products.length || 0}
+          </span>
         </p>
       </div>
-      <div className={cn("mt-spacing-sm flex gap-spacing-xs")}>
+
+      <div className={cn("mt-md flex gap-xs")}>
         <button
           onClick={refreshCart}
           className={cn(
-            "rounded-radius-sm",
+            "flex-1",
+            "rounded-sm",
             "bg-secondary text-secondary-foreground",
-            "px-spacing-sm py-spacing-xs",
-            "text-xs font-medium",
-            "hover:opacity-80",
+            "px-sm py-xs",
+            "text-xs font-bold",
+            "transition-all duration-fast ease-out",
+            "hover:bg-accent hover:text-accent-foreground",
           )}
         >
           Refresh
@@ -56,10 +75,12 @@ export function CartDebugInfo() {
         <button
           onClick={clearCart}
           className={cn(
-            "rounded-radius-sm",
-            "bg-primary text-primary-foreground",
-            "px-spacing-sm py-spacing-xs",
-            "text-xs font-medium",
+            "flex-1",
+            "rounded-sm",
+            "bg-error text-white",
+            "px-sm py-xs",
+            "text-xs font-bold",
+            "transition-all duration-fast ease-out",
             "hover:opacity-80",
           )}
         >

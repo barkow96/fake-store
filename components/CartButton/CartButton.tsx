@@ -1,9 +1,9 @@
 "use client";
 import { ORoute } from "@/constants";
 import { useCart } from "@/contexts";
-import { cn, logInfo } from "@/utils";
+import { cn } from "@/utils";
 import Link from "next/link";
-import { BiCartAdd } from "react-icons/bi";
+import { BiCart } from "react-icons/bi";
 
 export const CartButton = () => {
   const { cart } = useCart();
@@ -13,25 +13,46 @@ export const CartButton = () => {
     0,
   );
 
-  logInfo("CartButton", { cart, itemsCount });
+  const hasItems = (itemsCount ?? 0) > 0;
 
   return (
     <Link
       href={ORoute.CART}
       className={cn(
-        "flex items-center gap-spacing-sm p-4",
-        "rounded-lg",
-        "bg-primary text-primary-foreground",
-        "px-spacing-lg py-spacing-sm",
-        "text-lg font-medium",
-        "shadow-sm",
-        "transition-all hover:opacity-90 hover:shadow-md",
+        // Layout
+        "relative flex items-center gap-md",
+        // Styling
+        "rounded-xl",
+        "bg-accent text-accent-foreground",
+        "px-xl py-md",
+        "text-base font-bold",
+        // Effects
+        "shadow-sm hover:shadow-md",
+        "transition-all duration-base ease-out",
+        "hover:opacity-90 hover:-translate-y-0.5",
       )}
-      aria-label="Go to shopping cart"
+      aria-label={`Go to shopping cart (${itemsCount ?? 0} items)`}
     >
-      <BiCartAdd size={30} />
-
-      <span>CART ({itemsCount})</span>
+      <BiCart size={24} />
+      <span>Cart</span>
+      
+      {hasItems && (
+        <span
+          className={cn(
+            "absolute -top-2 -right-2",
+            "flex items-center justify-center",
+            "min-w-[1.75rem] h-7",
+            "px-sm",
+            "rounded-full",
+            "bg-error text-white",
+            "text-sm font-bold",
+            "shadow-md",
+            "animate-in fade-in zoom-in",
+          )}
+        >
+          {itemsCount}
+        </span>
+      )}
     </Link>
   );
 };

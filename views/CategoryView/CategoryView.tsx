@@ -9,7 +9,7 @@ export const CategoryView = ({ productsInCategory }: Props) => {
   const { category, products } = productsInCategory;
 
   return (
-    <div className={cn("mx-auto max-w-7xl", "px-spacing-lg py-spacing-2xl")}>
+    <div className={cn("mx-auto max-w-7xl", "px-xl py-3xl")}>
       <ViewHeader
         title={category}
         description={`${products.length} products available`}
@@ -18,7 +18,7 @@ export const CategoryView = ({ productsInCategory }: Props) => {
 
       <div
         className={cn(
-          "grid gap-spacing-lg",
+          "grid gap-xl",
           "grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4",
         )}
       >
