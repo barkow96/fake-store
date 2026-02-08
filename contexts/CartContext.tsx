@@ -2,7 +2,7 @@
 import { OLocalStorageKey } from "@/constants";
 import { isNumber } from "@/mappers";
 import { CartService } from "@/services";
-import { Cart, CartProduct, EntryId, UpdateCartParams } from "@/types";
+import { Cart, CartId, CartProduct, UpdateCartParams, UserId } from "@/types";
 import {
   getLocalStorageItem,
   logInfo,
@@ -26,8 +26,8 @@ const USER_ID = 1;
 
 type CartContextType = {
   cart: Cart | null;
-  userId: EntryId | null;
-  cartId: EntryId | null;
+  userId: UserId | null;
+  cartId: CartId | null;
   isInitialized: boolean;
   clearCart: () => void;
   refreshCart: () => void;
@@ -38,8 +38,8 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export function CartProvider({ children }: PropsWithChildren) {
   const [cart, setCart] = useState<Cart | null>(null);
-  const [userId, setUserId] = useState<EntryId | null>(null);
-  const [cartId, setCartId] = useState<EntryId | null>(null);
+  const [userId, setUserId] = useState<UserId | null>(null);
+  const [cartId, setCartId] = useState<CartId | null>(null);
   const [isInitialized, setIsInitialized] = useState(false);
 
   const updateCart = async (productsDiff: CartProduct[]): Promise<void> => {
@@ -86,8 +86,8 @@ export function CartProvider({ children }: PropsWithChildren) {
   };
 
   const loadFromLocalStorage = (): {
-    userId: EntryId | null;
-    cartId: EntryId | null;
+    userId: UserId | null;
+    cartId: CartId | null;
     cart: Cart | null;
   } => {
     const userIdStr = getLocalStorageItem(OLocalStorageKey.UserId);
@@ -130,8 +130,8 @@ export function CartProvider({ children }: PropsWithChildren) {
   };
 
   const initializeExistingCart = (
-    userId: EntryId,
-    cartId: EntryId,
+    userId: UserId,
+    cartId: CartId,
     cart: Cart,
   ): void => {
     setUserId(userId);

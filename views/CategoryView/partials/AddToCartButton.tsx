@@ -1,10 +1,10 @@
 "use client";
 import { useCart } from "@/contexts";
-import { EntryId } from "@/types";
+import { CartProductId } from "@/types";
 import { cn } from "@/utils";
 
 type Props = {
-  productId: EntryId;
+  productId: CartProductId;
   quantity?: number;
 };
 

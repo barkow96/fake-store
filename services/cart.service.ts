@@ -2,8 +2,8 @@ import { OApiEndpointUrl } from "@/constants";
 import { assureCart, assureEntryId } from "@/mappers";
 import type {
   Cart,
+  CartId,
   DeleteCartParams,
-  EntryId,
   GetCartParams,
   IsSuccess,
   UpdateCartParams,
@@ -39,7 +39,7 @@ export const CartService = {
     return assureCart(data);
   },
 
-  async createCart(): Promise<EntryId | undefined> {
+  async createCart(): Promise<CartId | undefined> {
     const url = OApiEndpointUrl.Carts;
 
     const response = await fetch(url, {

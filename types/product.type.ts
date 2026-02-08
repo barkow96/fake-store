@@ -1,7 +1,9 @@
 import { EntryId, Maybe } from "@/types";
 
+export type ProductId = EntryId;
+
 export type ApiProduct = {
-  id: Maybe<EntryId>;
+  id: Maybe<ProductId>;
   title: Maybe<string>;
   price: Maybe<number>;
   description: Maybe<string>;
@@ -10,7 +12,7 @@ export type ApiProduct = {
 };
 
 export type Product = {
-  id: EntryId;
+  id: ProductId;
   title: string;
   price: number;
   description: string;
@@ -24,5 +26,5 @@ export type ProductsInCategory = {
 };
 
 export type GetProductParams = {
-  id: EntryId;
+  id: ProductId;
 };
