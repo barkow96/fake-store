@@ -1,6 +1,7 @@
 import { CartButton } from "@/components";
 import { ORoute } from "@/constants";
 import { cn } from "@/utils";
+import Image from "next/image";
 import Link from "next/link";
 
 export function Header() {
@@ -35,6 +36,7 @@ export function Header() {
               "flex items-center",
             )}
           >
+            <Image src="/logo.png" alt="Fake Store" width={80} height={80} />
             <span className={cn("text-accent")}>Fake</span>
             <span>Store</span>
           </h1>
