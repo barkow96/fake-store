@@ -6,7 +6,7 @@ import { Metadata } from "next";
 export async function generateStaticParams() {
   const categories = await ProductService.getProductCategories();
   return categories.map((category) => ({
-    name: encodeURIComponent(category),
+    name: category,
   }));
 }
 
