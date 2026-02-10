@@ -119,11 +119,11 @@ export function CartProvider({ children }: PropsWithChildren) {
 
     if (!existingCart) {
       logWarn(
-        "CartProvider initializeExistingCart: CartService.getCart didn't return a cart, creating an empty cart",
+        "CartProvider initializeExistingCart: CartService.getCart didn't return a cart, using the cart from local storage",
       );
-      const emptyCart: Cart = { id: cartFromLS.id, products: [] };
-      saveCartToLocalStorage(emptyCart);
-      setCart(emptyCart);
+
+      saveCartToLocalStorage(cartFromLS);
+      setCart(cartFromLS);
       return;
     }
 
