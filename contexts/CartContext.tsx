@@ -8,7 +8,6 @@ import {
   CartProduct,
   IsSuccess,
   UpdateCartParams,
-  UserId,
 } from "@/types";
 import {
   getLocalStorageItem,
@@ -28,12 +27,8 @@ import {
   useState,
 } from "react";
 
-// TODO: In the future, these values will come from API
-const USER_ID = 1;
-
 type CartContextType = {
   cart: Cart | null;
-  userId: UserId | null;
   cartId: CartId | null;
   isInitialized: boolean;
   clearCart: () => void;
@@ -45,16 +40,15 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export function CartProvider({ children }: PropsWithChildren) {
   const [cart, setCart] = useState<Cart | null>(null);
-  const [userId, setUserId] = useState<UserId | null>(null);
   const [cartId, setCartId] = useState<CartId | null>(null);
   const [isInitialized, setIsInitialized] = useState(false);
 
   const updateCart = async (
     productsDiff: CartProduct[],
   ): Promise<IsSuccess> => {
-    if (!cartId || !userId || !cart) {
+    if (!cartId || !cart) {
       logWarn(
-        "CartProvider updateCart: Missing cartId, userId, or cart, skipping update",
+        "CartProvider updateCart: Missing cartId or cart, skipping update",
       );
       return false;
     }
@@ -86,7 +80,6 @@ export function CartProvider({ children }: PropsWithChildren) {
 
     const newCart: Cart = {
       id: cartId,
-      userId: userId,
       products: mergedProducts,
     };
 
@@ -96,23 +89,19 @@ export function CartProvider({ children }: PropsWithChildren) {
   };
 
   const loadFromLocalStorage = (): {
-    userId: UserId | null;
     cartId: CartId | null;
     cart: Cart | null;
   } => {
-    const userIdStr = getLocalStorageItem(OLocalStorageKey.UserId);
     const cartIdStr = getLocalStorageItem(OLocalStorageKey.CartId);
     const cart = parseCartFromLocalStorage();
 
     return {
-      userId: userIdStr ? parseInt(userIdStr) : null,
       cartId: cartIdStr ? parseInt(cartIdStr) : null,
       cart,
     };
   };
 
   const saveToLocalStorage = (cart: Cart): void => {
-    setLocalStorageItem(OLocalStorageKey.UserId, cart.userId.toString());
     setLocalStorageItem(OLocalStorageKey.CartId, cart.id.toString());
     setLocalStorageItem(OLocalStorageKey.Cart, JSON.stringify(cart));
   };
@@ -129,50 +118,40 @@ export function CartProvider({ children }: PropsWithChildren) {
 
     const newCart: Cart = {
       id: newCartId,
-      userId: USER_ID,
       products: [],
     };
 
     saveToLocalStorage(newCart);
     setCart(newCart);
-    setUserId(USER_ID);
     setCartId(newCartId);
   };
 
-  const initializeExistingCart = (
-    userId: UserId,
-    cartId: CartId,
-    cart: Cart,
-  ): void => {
-    setUserId(userId);
-    setCartId(cartId);
-    setCart(cart);
-  };
-
   const clearCart = (): void => {
-    removeLocalStorageItem(OLocalStorageKey.UserId);
     removeLocalStorageItem(OLocalStorageKey.CartId);
     removeLocalStorageItem(OLocalStorageKey.Cart);
 
-    setUserId(null);
     setCartId(null);
     setCart(null);
   };
 
   const refreshCart = (): void => {
-    const { userId, cartId, cart } = loadFromLocalStorage();
+    const { cartId, cart } = loadFromLocalStorage();
 
-    setUserId(userId);
+    setCartId(cartId);
+    setCart(cart);
+  };
+
+  const initializeExistingCart = (cartId: CartId, cart: Cart): void => {
     setCartId(cartId);
     setCart(cart);
   };
 
   const initializeCart = useEffectEvent(async () => {
-    const { userId, cartId, cart } = loadFromLocalStorage();
+    const { cartId, cart } = loadFromLocalStorage();
 
-    const hasExistingCart = userId && cartId && cart;
+    const hasExistingCart = cartId && cart;
 
-    if (hasExistingCart) initializeExistingCart(userId, cartId, cart);
+    if (hasExistingCart) initializeExistingCart(cartId, cart);
     else await initializeNewCart();
 
     setIsInitialized(true);
@@ -188,7 +167,6 @@ export function CartProvider({ children }: PropsWithChildren) {
     <CartContext.Provider
       value={{
         cart,
-        userId,
         cartId,
         isInitialized,
         clearCart,

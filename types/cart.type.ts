@@ -21,7 +21,6 @@ export type ApiCart = {
 
 export type Cart = {
   id: CartId;
-  userId: UserId;
   products: CartProduct[];
 };
 

@@ -27,7 +27,6 @@ export const apiToAppCartProductsList = (
 export const assureCart = (apiCart: ApiCart): Cart => {
   return {
     id: assureEntryId(apiCart?.id, "cart.id"),
-    userId: assureEntryId(apiCart?.id, "cart.userId"),
     products: apiToAppCartProductsList(apiCart?.products as ApiCartProduct[]),
   };
 };
