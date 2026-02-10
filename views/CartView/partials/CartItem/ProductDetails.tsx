@@ -20,7 +20,7 @@ export const ProductDetails = ({ product, quantity, totalPrice }: Props) => {
       <div
         className={cn(
           "relative flex-shrink-0 self-center min-[400px]:self-start",
-          "w-14 h-14 min-[360px]:w-16 min-[360px]:h-16 sm:w-20 sm:h-20 lg:w-28 lg:h-28",
+          "w-20 h-20 min-[400px]:w-24 min-[400px]:h-24 sm:w-28 sm:h-28 lg:w-32 lg:h-32",
           "rounded-lg bg-secondary/50",
           "overflow-hidden",
         )}
@@ -28,8 +28,9 @@ export const ProductDetails = ({ product, quantity, totalPrice }: Props) => {
         <Image
           src={product.image}
           alt={product.title}
-          fill
           className={cn("object-contain p-sm sm:p-md")}
+          sizes="(max-width: 400px) 80px, (max-width: 640px) 96px, (max-width: 1024px) 112px, 128px"
+          fill
         />
       </div>
 
