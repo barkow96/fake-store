@@ -1,4 +1,4 @@
-import { serviceConfig } from "@/configs";
+import { CACHE_REVALIDATE_1_MINUTE, serviceConfig } from "@/configs";
 import { OApiEndpointUrl } from "@/constants";
 import { apiToAppProductsList, assureProduct } from "@/mappers";
 import type { GetProductParams, Product, ProductsInCategory } from "@/types";
@@ -12,7 +12,7 @@ export const ProductService = {
     const response = await fetch(url, {
       method: "GET",
       headers: serviceConfig.headers,
-      // next: { revalidate: CACHE_REVALIDATE_5_MINUTES }, // TODO: Uncomment this
+      next: { revalidate: CACHE_REVALIDATE_1_MINUTE },
     }).catch((error) => {
       logError("[ProductService.getProduct] Fetch failed", { url, error, id });
     });
@@ -32,10 +32,13 @@ export const ProductService = {
     });
 
     const data = await response.json().catch((err) => {
-      logError("Failed to parse product data from fetch response", {
-        url,
-        err,
-      });
+      logError(
+        "[ProductService.getProduct] Failed to parse product data from fetch response",
+        {
+          url,
+          err,
+        },
+      );
 
       return;
     });
@@ -53,7 +56,7 @@ export const ProductService = {
     const response = await fetch(url, {
       method: "GET",
       headers: serviceConfig.headers,
-      // next: { revalidate: CACHE_REVALIDATE_5_MINUTES }, // TODO: Uncomment this
+      next: { revalidate: CACHE_REVALIDATE_1_MINUTE },
     }).catch((error) => {
       logError("[ProductService.getProducts] Fetch failed", { url, error });
     });
@@ -72,10 +75,13 @@ export const ProductService = {
     });
 
     const data = await response.json().catch((err) => {
-      logError("Failed to parse products data from fetch response", {
-        url,
-        err,
-      });
+      logError(
+        "[ProductService.getProducts] Failed to parse products data from fetch response",
+        {
+          url,
+          err,
+        },
+      );
 
       return [] as Product[];
     });

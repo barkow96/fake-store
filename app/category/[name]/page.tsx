@@ -3,15 +3,6 @@ import { ProductService } from "@/services";
 import { CategoryView } from "@/views";
 import { Metadata } from "next";
 
-export const dynamic = "force-dynamic";
-
-export async function generateStaticParams(): Promise<{ name: string }[]> {
-  const categories = await ProductService.getProductCategories();
-  return categories.map((category) => ({
-    name: encodeURIComponent(category),
-  }));
-}
-
 type Props = {
   params: Promise<{ name: string }>;
 };
@@ -34,6 +25,13 @@ export default async function CategoryPage({ params }: Props) {
       <CategoryView productsInCategory={productsInCategory} />
     </>
   );
+}
+
+export async function generateStaticParams(): Promise<{ name: string }[]> {
+  const categories = await ProductService.getProductCategories();
+  return categories.map((category) => ({
+    name: encodeURIComponent(category),
+  }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {

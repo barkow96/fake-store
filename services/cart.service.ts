@@ -38,11 +38,14 @@ export const CartService = {
     logInfo("[CartService.getCart] Response", { url, status: response.status });
 
     const data = await response.json().catch((err) => {
-      logError("Failed to parse cart data from fetch response", {
-        url,
-        err,
-        id,
-      });
+      logError(
+        "[CartService.getCart] Failed to parse cart data from fetch response",
+        {
+          url,
+          err,
+          id,
+        },
+      );
 
       return;
     });
@@ -80,10 +83,13 @@ export const CartService = {
     });
 
     const data = await response.json().catch((err) => {
-      logError("Failed to parse created cart data from fetch response", {
-        url,
-        err,
-      });
+      logError(
+        "[CartService.createCart] Failed to parse created cart data from fetch response",
+        {
+          url,
+          err,
+        },
+      );
 
       return;
     });
@@ -105,7 +111,7 @@ export const CartService = {
       headers: serviceConfig.headers,
       body: JSON.stringify(params),
     }).catch((error) => {
-      logError("Failed to update cart", { url, error, params });
+      logError("[CartService.updateCart] Fetch failed", { url, error, params });
     });
 
     if (!response || !response.ok) {
@@ -123,11 +129,14 @@ export const CartService = {
     });
 
     const data = await response.json().catch((err) => {
-      logError("Failed to parse updated cart data from fetch response", {
-        url,
-        err,
-        params,
-      });
+      logError(
+        "[CartService.updateCart] Failed to parse updated cart data from fetch response",
+        {
+          url,
+          err,
+          params,
+        },
+      );
 
       return;
     });
@@ -149,7 +158,7 @@ export const CartService = {
       method: "DELETE",
       headers: serviceConfig.headers,
     }).catch((error) => {
-      logError("Failed to delete cart", { url, error, params });
+      logError("[CartService.deleteCart] Fetch failed", { url, error, params });
     });
 
     if (!response || !response.ok) {
