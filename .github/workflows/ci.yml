@@ -1,17 +1,15 @@
-name: Deploy to GitHub Pages
+name: CI
 
 on:
   push:
     branches:
       - master
-
-permissions:
-  contents: read
-  pages: write
-  id-token: write
+  pull_request:
+    branches:
+      - master
 
 jobs:
-  build:
+  ci:
     runs-on: ubuntu-latest
     env:
       NEXT_PUBLIC_APP_URL: ${{ vars.NEXT_PUBLIC_APP_URL }}
@@ -29,7 +27,6 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
-      # 1/ Tests and code quality
       - name: Lint
         run: yarn lint
 
@@ -39,23 +36,5 @@ jobs:
       - name: Test
         run: yarn test
 
-      # 2/ Build
       - name: Build
         run: yarn build
-
-      # 3/ Prepare deployment artifact
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: ./out
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4

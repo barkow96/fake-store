@@ -3,10 +3,10 @@ import { ProductService } from "@/services";
 import { CategoryView } from "@/views";
 import { Metadata } from "next";
 
-export async function generateStaticParams() {
+export async function generateStaticParams(): Promise<{ name: string }[]> {
   const categories = await ProductService.getProductCategories();
   return categories.map((category) => ({
-    name: category,
+    name: encodeURIComponent(category),
   }));
 }
 
