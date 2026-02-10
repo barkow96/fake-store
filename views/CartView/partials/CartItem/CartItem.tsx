@@ -26,20 +26,20 @@ export const CartItem = ({
 
   const handleIncrease = async () => {
     const isSuccess = await onIncrease();
-    if (isSuccess) toast.success("Successfully increased quantity");
-    else toast.error("Failed to increase quantity");
+    if (isSuccess) toast.success("Quantity updated");
+    else toast.error("Couldn't update quantity");
   };
 
   const handleDecrease = async () => {
     const isSuccess = await onDecrease();
-    if (isSuccess) toast.success("Successfully decreased quantity");
-    else toast.error("Failed to increase quantity");
+    if (isSuccess) toast.success("Quantity updated");
+    else toast.error("Couldn't update quantity");
   };
 
   const handleRemove = async () => {
     const isSuccess = await onRemove();
-    if (isSuccess) toast.success("Successfully removed product from the Cart");
-    else toast.error("Failed to remove product from the Cart");
+    if (isSuccess) toast.success("Removed from cart");
+    else toast.error("Couldn't remove item");
   };
 
   return (

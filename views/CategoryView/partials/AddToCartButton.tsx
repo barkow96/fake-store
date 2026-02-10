@@ -15,8 +15,8 @@ export const AddToCartButton = ({ productId, quantity = 1 }: Props) => {
 
   const handleClick = async () => {
     const isSuccess = await updateCart([{ productId, quantity }]);
-    if (isSuccess) toast.success("Successfully added product to the Cart");
-    else toast.error("Failed to add product to the Cart");
+    if (isSuccess) toast.success("Added to cart");
+    else toast.error("Couldn't add to cart");
   };
 
   return (
