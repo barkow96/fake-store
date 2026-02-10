@@ -1,5 +1,5 @@
 "use client";
-import { ViewContainer, ViewHeader } from "@/components";
+import { ViewContainerNarrow, ViewHeader } from "@/components";
 import { Cart, CartProductId, IsSuccess, Product } from "@/types";
 import { cn } from "@/utils";
 import { CartEmpty, CartItem, CartLoading, OrderSummary } from "./partials";
@@ -38,7 +38,7 @@ export const CartView = ({
     : `${totalItems} ${totalItems === 1 ? "item" : "items"} in cart`;
 
   return (
-    <ViewContainer>
+    <ViewContainerNarrow>
       <ViewHeader
         title="Shopping Cart"
         description={description}
@@ -76,6 +76,6 @@ export const CartView = ({
           </section>
         </div>
       )}
-    </ViewContainer>
+    </ViewContainerNarrow>
   );
 };
