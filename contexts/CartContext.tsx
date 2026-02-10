@@ -2,15 +2,8 @@
 import { OLocalStorageKey } from "@/constants";
 import { isNumber } from "@/mappers";
 import { CartService } from "@/services";
+import { Cart, CartProduct, IsSuccess, UpdateCartParams } from "@/types";
 import {
-  Cart,
-  CartId,
-  CartProduct,
-  IsSuccess,
-  UpdateCartParams,
-} from "@/types";
-import {
-  getLocalStorageItem,
   logInfo,
   logWarn,
   mergeCartProducts,
@@ -29,10 +22,9 @@ import {
 
 type CartContextType = {
   cart: Cart | null;
-  cartId: CartId | null;
-  isInitialized: boolean;
+  isCartInitialized: boolean;
   clearCart: () => void;
-  refreshCart: () => void;
+  loadCart: () => void;
   updateCart: (cartProducts: CartProduct[]) => Promise<IsSuccess>;
 };
 
@@ -40,23 +32,22 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export function CartProvider({ children }: PropsWithChildren) {
   const [cart, setCart] = useState<Cart | null>(null);
-  const [cartId, setCartId] = useState<CartId | null>(null);
-  const [isInitialized, setIsInitialized] = useState(false);
+  const [isCartInitialized, setIsCartInitialized] = useState(false);
 
   const updateCart = async (
     productsDiff: CartProduct[],
   ): Promise<IsSuccess> => {
-    if (!cartId || !cart) {
-      logWarn(
-        "CartProvider updateCart: Missing cartId or cart, skipping update",
-      );
+    if (!cart) {
+      logWarn("CartProvider updateCart: Missing cart, skipping update", {
+        cart,
+      });
       return false;
     }
 
     const mergedProducts = mergeCartProducts(cart.products, productsDiff);
 
     const params: UpdateCartParams = {
-      id: cartId,
+      id: cart.id,
       products: mergedProducts,
     };
 
@@ -71,38 +62,26 @@ export function CartProvider({ children }: PropsWithChildren) {
 
     const updatedCart = await CartService.updateCart(params);
 
-    logInfo("CartProvider updateCart: updatedCart", updatedCart);
+    logInfo("CartProvider updateCart: CartService.updateCart finished", {
+      updatedCart,
+    });
 
     if (!updatedCart) {
-      logWarn("CartProvider updateCart: failed to update cart");
+      logWarn("CartProvider updateCart: CartService.updateCart failed");
       return false;
     }
 
     const newCart: Cart = {
-      id: cartId,
+      id: cart.id,
       products: mergedProducts,
     };
 
-    saveToLocalStorage(newCart);
+    saveCartToLocalStorage(newCart);
     setCart(newCart);
     return true;
   };
 
-  const loadFromLocalStorage = (): {
-    cartId: CartId | null;
-    cart: Cart | null;
-  } => {
-    const cartIdStr = getLocalStorageItem(OLocalStorageKey.CartId);
-    const cart = parseCartFromLocalStorage();
-
-    return {
-      cartId: cartIdStr ? parseInt(cartIdStr) : null,
-      cart,
-    };
-  };
-
-  const saveToLocalStorage = (cart: Cart): void => {
-    setLocalStorageItem(OLocalStorageKey.CartId, cart.id.toString());
+  const saveCartToLocalStorage = (cart: Cart): void => {
     setLocalStorageItem(OLocalStorageKey.Cart, JSON.stringify(cart));
   };
 
@@ -121,56 +100,48 @@ export function CartProvider({ children }: PropsWithChildren) {
       products: [],
     };
 
-    saveToLocalStorage(newCart);
+    saveCartToLocalStorage(newCart);
     setCart(newCart);
-    setCartId(newCartId);
   };
 
   const clearCart = (): void => {
-    removeLocalStorageItem(OLocalStorageKey.CartId);
     removeLocalStorageItem(OLocalStorageKey.Cart);
-
-    setCartId(null);
     setCart(null);
   };
 
-  const refreshCart = (): void => {
-    const { cartId, cart } = loadFromLocalStorage();
-
-    setCartId(cartId);
+  const loadCart = (): void => {
+    const cart = parseCartFromLocalStorage();
     setCart(cart);
   };
 
-  const initializeExistingCart = (cartId: CartId, cart: Cart): void => {
-    setCartId(cartId);
+  const initializeExistingCart = (cart: Cart): void => {
     setCart(cart);
   };
 
   const initializeCart = useEffectEvent(async () => {
-    const { cartId, cart } = loadFromLocalStorage();
+    const cart = parseCartFromLocalStorage();
 
-    const hasExistingCart = cartId && cart;
+    const hasExistingCart = !!cart;
 
-    if (hasExistingCart) initializeExistingCart(cartId, cart);
+    if (hasExistingCart) initializeExistingCart(cart);
     else await initializeNewCart();
 
-    setIsInitialized(true);
+    setIsCartInitialized(true);
   });
 
   useEffect(() => {
-    if (isInitialized) return;
+    if (isCartInitialized) return;
 
     initializeCart();
-  }, [isInitialized]);
+  }, [isCartInitialized]);
 
   return (
     <CartContext.Provider
       value={{
         cart,
-        cartId,
-        isInitialized,
+        isCartInitialized,
         clearCart,
-        refreshCart,
+        loadCart,
         updateCart,
       }}
     >

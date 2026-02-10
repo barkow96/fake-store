@@ -7,7 +7,7 @@ import { CartView } from "@/views";
 import { useEffect, useState } from "react";
 
 export default function CartPage() {
-  const { cart, isInitialized, updateCart } = useCart();
+  const { cart, isCartInitialized: isInitialized, updateCart } = useCart();
   const [products, setProducts] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
