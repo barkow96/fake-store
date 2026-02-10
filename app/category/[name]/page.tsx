@@ -3,6 +3,13 @@ import { ProductService } from "@/services";
 import { CategoryView } from "@/views";
 import { Metadata } from "next";
 
+export async function generateStaticParams() {
+  const categories = await ProductService.getProductCategories();
+  return categories.map((category) => ({
+    name: encodeURIComponent(category),
+  }));
+}
+
 type Props = {
   params: Promise<{ name: string }>;
 };
@@ -43,11 +50,4 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description,
     },
   };
-}
-
-export async function generateStaticParams() {
-  const categories = await ProductService.getProductCategories();
-  return categories.map((category) => ({
-    name: encodeURIComponent(category),
-  }));
 }
