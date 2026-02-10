@@ -34,6 +34,20 @@ export function CartProvider({ children }: PropsWithChildren) {
   const [cart, setCart] = useState<Cart | null>(null);
   const [isCartInitialized, setIsCartInitialized] = useState(false);
 
+  const saveCartToLocalStorage = (cart: Cart): void => {
+    setLocalStorageItem(OLocalStorageKey.Cart, JSON.stringify(cart));
+  };
+
+  const clearCart = (): void => {
+    removeLocalStorageItem(OLocalStorageKey.Cart);
+    setCart(null);
+  };
+
+  const loadCart = (): void => {
+    const cart = parseCartFromLocalStorage();
+    setCart(cart);
+  };
+
   const updateCart = async (
     productsDiff: CartProduct[],
   ): Promise<IsSuccess> => {
@@ -81,10 +95,6 @@ export function CartProvider({ children }: PropsWithChildren) {
     return true;
   };
 
-  const saveCartToLocalStorage = (cart: Cart): void => {
-    setLocalStorageItem(OLocalStorageKey.Cart, JSON.stringify(cart));
-  };
-
   const initializeNewCart = async (): Promise<void> => {
     const newCartId = await CartService.createCart();
 
@@ -104,26 +114,35 @@ export function CartProvider({ children }: PropsWithChildren) {
     setCart(newCart);
   };
 
-  const clearCart = (): void => {
-    removeLocalStorageItem(OLocalStorageKey.Cart);
-    setCart(null);
-  };
+  const initializeExistingCart = async (cartFromLS: Cart): Promise<void> => {
+    const existingCart = await CartService.getCart({ id: cartFromLS.id });
 
-  const loadCart = (): void => {
-    const cart = parseCartFromLocalStorage();
-    setCart(cart);
-  };
+    if (!existingCart) {
+      logWarn(
+        "CartProvider initializeExistingCart: CartService.getCart didn't return a cart, creating an empty cart",
+      );
+      const emptyCart: Cart = { id: cartFromLS.id, products: [] };
+      saveCartToLocalStorage(emptyCart);
+      setCart(emptyCart);
+      return;
+    }
 
-  const initializeExistingCart = (cart: Cart): void => {
-    setCart(cart);
+    logInfo(
+      "CartProvider initializeExistingCart: CartService.getCart returned a cart, updating local storage and state",
+      {
+        existingCart,
+      },
+    );
+    saveCartToLocalStorage(existingCart);
+    setCart(existingCart);
   };
 
   const initializeCart = useEffectEvent(async () => {
-    const cart = parseCartFromLocalStorage();
+    const cartFromLS = parseCartFromLocalStorage();
 
-    const hasExistingCart = !!cart;
+    const hasExistingCart = !!cartFromLS;
 
-    if (hasExistingCart) initializeExistingCart(cart);
+    if (hasExistingCart) initializeExistingCart(cartFromLS);
     else await initializeNewCart();
 
     setIsCartInitialized(true);

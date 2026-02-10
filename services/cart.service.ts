@@ -36,6 +36,7 @@ export const CartService = {
       return;
     });
 
+    if (!data) return;
     return assureCart(data);
   },
 
@@ -62,7 +63,7 @@ export const CartService = {
       return;
     });
 
-    return assureEntryId(data?.id);
+    return assureEntryId(data?.id, undefined);
   },
 
   async updateCart(params: UpdateCartParams): Promise<Cart | undefined> {
@@ -90,6 +91,7 @@ export const CartService = {
       return;
     });
 
+    if (!data) return;
     return assureCart(data);
   },
 
