@@ -44,3 +44,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
   };
 }
+
+export async function generateStaticParams() {
+  const categories = await ProductService.getProductCategories();
+  return categories.map((category) => ({
+    name: encodeURIComponent(category),
+  }));
+}
