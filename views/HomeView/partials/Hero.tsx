@@ -2,9 +2,9 @@ import { ScrollToSectionLink } from "@/components";
 import { SECTION_HOME_VIEW_CATEGORY_SECTION_ID } from "@/constants";
 import { cn } from "@/utils";
 
-export const HeroSection = () => {
+export const Hero = () => {
   return (
-    <section
+    <div
       className={cn(
         "relative overflow-hidden",
         "min-h-[calc(100vh-180px)]",
@@ -52,6 +52,6 @@ export const HeroSection = () => {
           Browse categories below
         </ScrollToSectionLink>
       </div>
-    </section>
+    </div>
   );
 };

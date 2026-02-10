@@ -5,7 +5,7 @@ import {
 } from "@/components";
 import { SECTION_HOME_VIEW_CATEGORY_SECTION_ID } from "@/constants";
 import { cn } from "@/utils";
-import { CategoryCard, HeroSection } from "./partials";
+import { CategoryCard, Hero } from "./partials";
 
 type Props = {
   categories: string[];
@@ -14,13 +14,14 @@ type Props = {
 export const HomeView = ({ categories }: Props) => {
   return (
     <>
-      <ViewContainerWide>
-        <HeroSection />
+      <ViewContainerWide asSection>
+        <Hero />
       </ViewContainerWide>
 
       <ViewContainerNarrow
         id={SECTION_HOME_VIEW_CATEGORY_SECTION_ID}
         className="scroll-mt-[100px]"
+        asSection
       >
         <ViewHeader
           title="Your Store For Fake Products"
