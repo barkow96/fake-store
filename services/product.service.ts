@@ -95,14 +95,18 @@ export const ProductService = {
 
   async getProductCategories(): Promise<string[]> {
     const products = await this.getProducts();
-    return [...new Set(products.map((product) => product.category))];
+    return [...new Set(products.map((product) => product.category))].sort(
+      (a, b) => a.localeCompare(b),
+    );
   },
 
   async getProductsInCategory(category: string): Promise<ProductsInCategory> {
     const products = await this.getProducts();
     return {
       category,
-      products: products.filter((product) => product.category === category),
+      products: products
+        .filter((product) => product.category === category)
+        .sort((a, b) => a.title.localeCompare(b.title)),
     };
   },
 };
