@@ -8,7 +8,8 @@ type Props = { product: Product };
 export const ProductCard = ({ product }: Props) => {
   return (
     <div
-      key={product.id}
+      key={`product-${product.id}`}
+      id={`product-${product.id}`}
       className={cn(
         // Layout
         "group flex flex-col h-full",
