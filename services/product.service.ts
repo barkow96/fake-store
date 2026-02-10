@@ -1,24 +1,35 @@
-import { CACHE_REVALIDATE_5_MINUTES, serviceConfig } from "@/configs";
+import { serviceConfig } from "@/configs";
 import { OApiEndpointUrl } from "@/constants";
 import { apiToAppProductsList, assureProduct } from "@/mappers";
 import type { GetProductParams, Product, ProductsInCategory } from "@/types";
-import { logError } from "@/utils";
+import { logError, logInfo } from "@/utils";
 
 export const ProductService = {
   async getProduct({ id }: GetProductParams): Promise<Product | undefined> {
     const url = `${OApiEndpointUrl.Products}/${id}`;
+    logInfo("[ProductService.getProduct] Fetching", { url, id });
 
     const response = await fetch(url, {
       method: "GET",
       headers: serviceConfig.headers,
-      next: { revalidate: CACHE_REVALIDATE_5_MINUTES },
+      // next: { revalidate: CACHE_REVALIDATE_5_MINUTES }, // TODO: Uncomment this
     }).catch((error) => {
-      logError("Failed to fetch product by id", { url, error, id });
+      logError("[ProductService.getProduct] Fetch failed", { url, error, id });
     });
 
     if (!response || !response.ok) {
+      logError("[ProductService.getProduct] Non-OK response", {
+        url,
+        id,
+      });
+
       return;
     }
+
+    logInfo("[ProductService.getProduct] Response", {
+      url,
+      status: response.status,
+    });
 
     const data = await response.json().catch((err) => {
       logError("Failed to parse product data from fetch response", {
@@ -29,23 +40,36 @@ export const ProductService = {
       return;
     });
 
-    return assureProduct(data);
+    if (!data) return;
+    const product = assureProduct(data);
+    logInfo("[ProductService.getProduct] Parsed product", { product });
+    return product;
   },
 
   async getProducts(): Promise<Product[]> {
     const url = OApiEndpointUrl.Products;
+    logInfo("[ProductService.getProducts] Fetching", { url });
 
     const response = await fetch(url, {
       method: "GET",
       headers: serviceConfig.headers,
-      next: { revalidate: CACHE_REVALIDATE_5_MINUTES },
+      // next: { revalidate: CACHE_REVALIDATE_5_MINUTES }, // TODO: Uncomment this
     }).catch((error) => {
-      logError("Failed to fetch products", { url, error });
+      logError("[ProductService.getProducts] Fetch failed", { url, error });
     });
 
     if (!response || !response.ok) {
+      logError("[ProductService.getProducts] Non-OK response", {
+        url,
+      });
+
       return [] as Product[];
     }
+
+    logInfo("[ProductService.getProducts] Response", {
+      url,
+      status: response.status,
+    });
 
     const data = await response.json().catch((err) => {
       logError("Failed to parse products data from fetch response", {
@@ -56,7 +80,11 @@ export const ProductService = {
       return [] as Product[];
     });
 
-    return apiToAppProductsList(data);
+    const list = apiToAppProductsList(data);
+    logInfo("[ProductService.getProducts] Parsed products count", {
+      count: list.length,
+    });
+    return list;
   },
 
   async getProductCategories(): Promise<string[]> {
