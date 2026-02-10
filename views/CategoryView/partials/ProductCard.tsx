@@ -3,6 +3,8 @@ import { cn, formatMoney } from "@/utils";
 import Image from "next/image";
 import { AddToCartButton } from "./AddToCartButton";
 
+const PRICE_CURRENCY = "USD";
+
 type Props = { product: Product };
 
 export const ProductCard = ({ product }: Props) => {
@@ -22,7 +24,17 @@ export const ProductCard = ({ product }: Props) => {
         "transition-all duration-base ease-out",
         "hover:border-accent hover:-translate-y-1",
       )}
+      itemType="https://schema.org/Product"
+      itemScope
     >
+      <meta itemProp="sku" content={String(product.id)} />
+      <span itemProp="description" className="sr-only">
+        {product.description}
+      </span>
+      <span itemProp="category" className="sr-only">
+        {product.category}
+      </span>
+
       {/* Product Image */}
       <div
         className={cn(
@@ -35,6 +47,7 @@ export const ProductCard = ({ product }: Props) => {
         <Image
           src={product.image}
           alt={product.title}
+          itemProp="image"
           className={cn(
             "object-contain",
             "p-lg",
@@ -49,6 +62,7 @@ export const ProductCard = ({ product }: Props) => {
       {/* Product Info */}
       <div className={cn("flex-1 flex flex-col", "space-y-md")}>
         <h3
+          itemProp="name"
           className={cn(
             "line-clamp-2 min-h-[2.5rem]",
             "text-base font-semibold leading-tight",
@@ -58,9 +72,19 @@ export const ProductCard = ({ product }: Props) => {
           {product.title}
         </h3>
 
-        <p className={cn("text-2xl font-bold", "text-accent")}>
-          {formatMoney(product.price)}
-        </p>
+        <span
+          itemScope
+          itemType="https://schema.org/Offer"
+          itemProp="offers"
+          className="contents"
+        >
+          <meta itemProp="priceCurrency" content={PRICE_CURRENCY} />
+          <meta itemProp="price" content={String(product.price)} />
+          <link itemProp="availability" href="https://schema.org/InStock" />
+          <p className={cn("text-2xl font-bold", "text-accent")}>
+            {formatMoney(product.price)}
+          </p>
+        </span>
       </div>
 
       {/* Add to Cart Button */}
