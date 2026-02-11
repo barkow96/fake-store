@@ -32,7 +32,7 @@ export const CartButton = () => {
             "min-w-[1.75rem] h-7",
             "px-sm",
             "rounded-full",
-            "bg-error text-white",
+            "bg-red text-white",
             "text-sm font-bold",
             "shadow-md",
             "animate-in fade-in zoom-in",

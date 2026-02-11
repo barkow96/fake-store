@@ -22,7 +22,7 @@ export const ErrorView = ({ error }: Props) => {
         className={cn(
           "flex items-center justify-center",
           "w-32 h-32 rounded-full",
-          "bg-error/10",
+          "bg-red/10",
           "mb-xl",
         )}
       >

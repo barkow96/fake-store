@@ -4,31 +4,32 @@
   /* Colors - Light Mode */
   --background: #ffffff;
   --foreground: #0a0a0a;
-  --secondary: #f4f4f5;
-  --accent: #3b82f6;
-  --accent-foreground: #ffffff;
   --muted-foreground: #71717a;
+  --primary: #3b82f6;
+  --primary-foreground: #ffffff;
+  --secondary: #f4f4f5;
+  --secondary-foreground: #0a0a0a;
   --border: #e4e4e7;
   --card: #ffffff;
   --card-foreground: #0a0a0a;
-  --success: #22c55e;
-  --error: #ef4444;
+  --green: #22c55e;
+  --red: #ef4444;
 
   /* Spacing */
-  --spacing-xs: 0.5rem; /* 8px */
-  --spacing-sm: 0.75rem; /* 12px */
-  --spacing-md: 1.25rem; /* 20px */
-  --spacing-lg: 2rem; /* 32px */
-  --spacing-xl: 2.5rem; /* 40px */
-  --spacing-2xl: 4rem; /* 64px */
-  --spacing-3xl: 6rem; /* 96px */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 0.75rem;
+  --spacing-md: 1.25rem;
+  --spacing-lg: 2rem;
+  --spacing-xl: 2.5rem;
+  --spacing-2xl: 4rem;
+  --spacing-3xl: 6rem;
 
   /* Border Radius */
-  --radius-sm: 0.5rem; /* 8px */
-  --radius-md: 0.75rem; /* 12px */
-  --radius-lg: 1rem; /* 16px */
-  --radius-xl: 1.5rem; /* 24px */
-  --radius-2xl: 2rem; /* 32px */
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-2xl: 2rem;
   --radius-full: 9999px;
 
   /* Shadows */
@@ -45,19 +46,21 @@
   --transition-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* Colors - Dark Mode */
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #fafafa;
-    --secondary: #27272a;
-    --accent: #60a5fa;
-    --accent-foreground: #ffffff;
     --muted-foreground: #a1a1aa;
+    --primary: #60a5fa;
+    --primary-foreground: #ffffff;
+    --secondary: #27272a;
+    --secondary-foreground: #fafafa;
     --border: #27272a;
     --card: #18181b;
     --card-foreground: #fafafa;
-    --success: #4ade80;
-    --error: #f87171;
+    --green: #4ade80;
+    --red: #f87171;
   }
 }
 
@@ -66,16 +69,16 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-secondary: var(--secondary);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
   --color-muted-foreground: var(--muted-foreground);
   --color-border: var(--border);
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
-  --color-success: var(--success);
-  --color-error: var(--error);
+  --color-green: var(--green);
+  --color-red: var(--red);
 
-  /* Spacing - możesz używać: p-xs, p-sm, p-md, p-lg, p-xl, p-2xl, p-3xl, gap-xs, etc. */
+  /* Spacing */
   --spacing-xs: 0.5rem;
   --spacing-sm: 0.75rem;
   --spacing-md: 1.25rem;
@@ -84,7 +87,7 @@
   --spacing-2xl: 4rem;
   --spacing-3xl: 6rem;
 
-  /* Border Radius - możesz używać: rounded-sm, rounded-md, rounded-lg, rounded-xl, rounded-2xl, rounded-full */
+  /* Border Radius */
   --radius-sm: 0.5rem;
   --radius-md: 0.75rem;
   --radius-lg: 1rem;
@@ -92,7 +95,7 @@
   --radius-2xl: 2rem;
   --radius-full: 9999px;
 
-  /* Shadows - możesz używać: shadow-sm, shadow-md, shadow-lg, shadow-xl */
+  /* Shadows */
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
   --shadow-lg:
@@ -100,7 +103,7 @@
   --shadow-xl:
     0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
 
-  /* Transition Durations - możesz używać: duration-fast, duration-base, duration-slow + ease-out (cubic-bezier jest domyślny) */
+  /* Transition Durations */
   --duration-fast: 150ms;
   --duration-base: 200ms;
   --duration-slow: 300ms;

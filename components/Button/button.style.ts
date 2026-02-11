@@ -26,18 +26,18 @@ export const getButtonClasses = (
 
     // Variant styles
     variant === "primary" && [
-      "bg-accent text-accent-foreground",
+      "bg-primary text-primary-foreground",
       "shadow-sm hover:shadow-md",
       "hover:opacity-90 hover:-translate-y-0.5",
     ],
     variant === "secondary" && [
-      "bg-card text-foreground",
-      "hover:bg-accent hover:text-accent-foreground",
+      "bg-secondary text-secondary-foreground",
+      "hover:bg-primary hover:text-primary-foreground",
     ],
-    variant === "ghost" && ["text-muted-foreground", "hover:text-error"],
+    variant === "ghost" && ["text-muted-foreground", "hover:text-red"],
     variant === "icon" && [
       "bg-card text-foreground",
-      "hover:bg-accent hover:text-accent-foreground",
+      "hover:bg-primary hover:text-primary-foreground",
     ],
 
     // Size styles

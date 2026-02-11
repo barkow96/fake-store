@@ -14,7 +14,7 @@ export const CartLoading = () => {
           className={cn(
             "inline-block",
             "w-16 h-16",
-            "border-4 border-border border-t-accent",
+            "border-4 border-border border-t-primary",
             "rounded-full",
             "animate-spin",
           )}

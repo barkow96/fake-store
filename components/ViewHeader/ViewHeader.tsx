@@ -23,7 +23,7 @@ export const ViewHeader = ({
             className={cn(
               "inline-flex items-center gap-sm",
               "text-base font-medium",
-              "text-muted-foreground hover:text-accent",
+              "text-muted-foreground hover:text-primary",
               "transition-colors duration-fast ease-out",
               "group",
             )}

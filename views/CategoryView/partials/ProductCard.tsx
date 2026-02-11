@@ -22,7 +22,7 @@ export const ProductCard = ({ product }: Props) => {
         // Effects
         "shadow-sm hover:shadow-lg",
         "transition-all duration-base ease-out",
-        "hover:border-accent hover:-translate-y-1",
+        "hover:border-primary hover:-translate-y-1",
       )}
       itemType="https://schema.org/Product"
       itemScope
@@ -81,7 +81,7 @@ export const ProductCard = ({ product }: Props) => {
           <meta itemProp="priceCurrency" content={PRICE_CURRENCY} />
           <meta itemProp="price" content={String(product.price)} />
           <link itemProp="availability" href="https://schema.org/InStock" />
-          <p className={cn("text-2xl font-bold", "text-accent")}>
+          <p className={cn("text-2xl font-bold", "text-primary")}>
             {formatMoney(product.price)}
           </p>
         </span>

@@ -37,7 +37,7 @@ export function Header() {
             )}
           >
             <Image src="/logo.png" alt="Fake Store" width={80} height={80} />
-            <span className={cn("text-accent")}>Fake</span>
+            <span className={cn("text-primary")}>Fake</span>
             <span>Store</span>
           </h1>
         </Link>

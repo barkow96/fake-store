@@ -41,7 +41,7 @@ export const OrderSummary = ({ totalItems, totalPrice }: Props) => {
 
         <div className={cn("flex justify-between gap-md", "text-base")}>
           <span className={cn("text-muted-foreground")}>Shipping</span>
-          <span className={cn("font-semibold text-success text-right")}>
+          <span className={cn("font-semibold text-green text-right")}>
             Free
           </span>
         </div>
@@ -61,7 +61,7 @@ export const OrderSummary = ({ totalItems, totalPrice }: Props) => {
           )}
         >
           <span className={cn("text-xl font-bold text-foreground")}>Total</span>
-          <span className={cn("text-3xl font-bold text-accent")}>
+          <span className={cn("text-3xl font-bold text-primary")}>
             {formatMoney(totalPrice)}
           </span>
         </div>

@@ -18,7 +18,7 @@ export const Hero = () => {
       <div
         className={cn(
           "absolute left-0 right-0 top-0 h-px",
-          "bg-gradient-to-r from-transparent via-accent/40 to-transparent",
+          "bg-gradient-to-r from-transparent via-primary/40 to-transparent",
         )}
         aria-hidden
       />
@@ -34,7 +34,7 @@ export const Hero = () => {
             "text-foreground",
           )}
         >
-          Fake products. <span className="text-accent">Real experience.</span>
+          Fake products. <span className="text-primary">Real experience.</span>
         </h2>
 
         <p

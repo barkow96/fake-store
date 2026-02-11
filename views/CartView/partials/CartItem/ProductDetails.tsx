@@ -68,7 +68,7 @@ export const ProductDetails = ({ product, quantity, totalPrice }: Props) => {
           </span>
           <span
             className={cn(
-              "tabular-nums text-lg font-semibold text-accent sm:text-xl",
+              "tabular-nums text-lg font-semibold text-primary sm:text-xl",
             )}
           >
             {formatMoney(totalPrice)}

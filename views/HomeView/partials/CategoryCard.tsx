@@ -21,7 +21,7 @@ export const CategoryCard = ({ category }: Props) => {
         // Effects
         "shadow-sm hover:shadow-lg",
         "transition-all duration-base ease-out",
-        "hover:border-accent hover:-translate-y-1",
+        "hover:border-primary hover:-translate-y-1",
       )}
     >
       <div>
@@ -29,7 +29,7 @@ export const CategoryCard = ({ category }: Props) => {
           className={cn(
             "text-xl font-bold capitalize",
             "text-card-foreground",
-            "group-hover:text-accent",
+            "group-hover:text-primary",
             "transition-colors duration-base ease-out",
           )}
         >
@@ -44,7 +44,7 @@ export const CategoryCard = ({ category }: Props) => {
         className={cn(
           "mt-lg",
           "flex items-center gap-sm",
-          "text-sm font-medium text-accent",
+          "text-sm font-medium text-primary",
           "group-hover:gap-md",
           "transition-all duration-base ease-out",
         )}
