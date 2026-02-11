@@ -1,6 +1,11 @@
 const getTimestamp = () => new Date().toISOString();
 
+const logsDisabled =
+  process.env.NEXT_PUBLIC_FEATURE_FLAG_DISABLE_LOGS === "true";
+
 export const logError = (message: string, details?: unknown): void => {
+  if (logsDisabled) return;
+
   if (details) {
     console.error(`❌ ${getTimestamp()} ${message}`, {
       details,
@@ -12,6 +17,8 @@ export const logError = (message: string, details?: unknown): void => {
 };
 
 export const logWarn = (message: string, details?: unknown): void => {
+  if (logsDisabled) return;
+
   if (details) {
     console.warn(`⚠️ ${getTimestamp()} ${message}`, {
       details,
@@ -23,6 +30,8 @@ export const logWarn = (message: string, details?: unknown): void => {
 };
 
 export const logInfo = (message: string, details?: unknown): void => {
+  if (logsDisabled) return;
+
   if (details) {
     console.info(`🔎 ${getTimestamp()} ${message}`, {
       details,

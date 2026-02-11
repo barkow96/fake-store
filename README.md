@@ -101,6 +101,6 @@ This keeps data fresh while avoiding unnecessary requests and stays within the N
 
 Optional environment variables can override defaults (e.g. API base URL). Copy `.env.example` to `.env` and adjust if needed. The app runs without a local `.env` when using the default Fake Store API configuration. Set any required vars before running the app.
 
-For correct **JSON-LD** (structured data) URLs in metadata, set `NEXT_PUBLIC_APP_URL` to your app’s public URL (e.g. the Vercel deployment URL).
+For correct **JSON-LD** (structured data) URLs in metadata, set `NEXT_PUBLIC_APP_URL` to your app’s public URL.
 
 ---
