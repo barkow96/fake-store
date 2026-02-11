@@ -4,19 +4,14 @@
   /* Colors - Light Mode */
   --background: #ffffff;
   --foreground: #0a0a0a;
-  --primary: #18181b;
-  --primary-foreground: #fafafa;
   --secondary: #f4f4f5;
-  --secondary-foreground: #18181b;
   --accent: #3b82f6;
   --accent-foreground: #ffffff;
-  --muted: #f4f4f5;
   --muted-foreground: #71717a;
   --border: #e4e4e7;
   --card: #ffffff;
   --card-foreground: #0a0a0a;
   --success: #22c55e;
-  --warning: #f59e0b;
   --error: #ef4444;
 
   /* Spacing */
@@ -54,19 +49,14 @@
   :root {
     --background: #0a0a0a;
     --foreground: #fafafa;
-    --primary: #fafafa;
-    --primary-foreground: #18181b;
     --secondary: #27272a;
-    --secondary-foreground: #fafafa;
     --accent: #60a5fa;
     --accent-foreground: #ffffff;
-    --muted: #27272a;
     --muted-foreground: #a1a1aa;
     --border: #27272a;
     --card: #18181b;
     --card-foreground: #fafafa;
     --success: #4ade80;
-    --warning: #fbbf24;
     --error: #f87171;
   }
 }
@@ -75,19 +65,14 @@
   /* Colors */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
   --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
-  --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
   --color-border: var(--border);
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
   --color-success: var(--success);
-  --color-warning: var(--warning);
   --color-error: var(--error);
 
   /* Spacing - możesz używać: p-xs, p-sm, p-md, p-lg, p-xl, p-2xl, p-3xl, gap-xs, etc. */
