@@ -8,6 +8,7 @@ type Props = {
 };
 
 export const ErrorView = ({ error }: Props) => {
+  const reloadApp = () => (window.location.href = ORoute.Home);
   return (
     <div
       className={cn(
@@ -52,12 +53,7 @@ export const ErrorView = ({ error }: Props) => {
       )}
 
       <div className={cn("flex flex-wrap items-center justify-center gap-md")}>
-        {/* {children} */}
-        <Button
-          variant="primary"
-          size="lg"
-          onClick={() => (window.location.href = ORoute.Home)}
-        >
+        <Button variant="primary" size="lg" onClick={reloadApp}>
           Try again
         </Button>
       </div>

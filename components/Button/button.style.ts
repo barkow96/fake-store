@@ -23,6 +23,9 @@ export const getButtonClasses = (
     "transition-all duration-base ease-out",
     "rounded-md",
     "cursor-pointer",
+    "focus:outline-none focus-visible:ring-2",
+    "focus-visible:ring-primary focus-visible:ring-offset-2",
+    "focus-visible:ring-offset-background",
 
     // Variant styles
     variant === "primary" && [

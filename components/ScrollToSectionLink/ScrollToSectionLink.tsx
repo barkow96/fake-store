@@ -25,7 +25,7 @@ export const ScrollToSectionLink = ({
     <ButtonAsLink
       href={`#${sectionId}`}
       onClick={handleClick}
-      variant="secondary"
+      variant="primary"
       size="md"
       className={cn("mt-xl rounded-full", className)}
     >

@@ -1,3 +1,5 @@
+import { ButtonAsLink } from "@/components";
+import { ORoute } from "@/constants";
 import { cn } from "@/utils";
 import { BiCart } from "react-icons/bi";
 
@@ -30,10 +32,14 @@ export const CartEmpty = () => {
         Your cart is empty
       </h2>
 
-      <p className={cn("text-lg text-muted-foreground", "w-full")}>
+      <p className={cn("text-lg text-muted-foreground", "w-full", "mb-xl")}>
         Looks like you haven&apos;t added anything to your cart yet. Start
         shopping to fill it up!
       </p>
+
+      <ButtonAsLink href={ORoute.Home} variant="primary" size="md">
+        Browse categories
+      </ButtonAsLink>
     </div>
   );
 };
