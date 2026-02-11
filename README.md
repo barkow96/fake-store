@@ -43,9 +43,10 @@ yarn start
 
 ### Other commands
 
-- `yarn lint` — ESLint
-- `yarn test` — Jest
-- `yarn prettier:check` / `yarn prettier:write` — Prettier
+- `yarn lint` — runs ESLint (static analysis and code style check).
+- `yarn test` — runs unit tests (Jest).
+- `yarn prettier:check` — checks if files are formatted correctly (Prettier).
+- `yarn prettier:write` — formats files (Prettier).
 
 ---
 
