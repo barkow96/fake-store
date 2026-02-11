@@ -12,8 +12,8 @@ jobs:
   ci:
     runs-on: ubuntu-latest
     env:
-      NEXT_PUBLIC_APP_URL: ${{ vars.NEXT_PUBLIC_APP_URL }}
-      NEXT_PUBLIC_API_URL: ${{ vars.NEXT_PUBLIC_API_URL }}
+      NEXT_PUBLIC_APP_URL: ${{ vars.NEXT_PUBLIC_APP_URL  }}
+      NEXT_PUBLIC_API_URL: ${{ vars.NEXT_PUBLIC_API_URL ?? "https://fakestoreapi.com" }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
